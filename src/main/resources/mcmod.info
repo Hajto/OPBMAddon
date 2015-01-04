@@ -1,0 +1,21 @@
+[
+{
+  "modid": "OPBMAddon",
+  "name": "Totally Over Powered Blood Magic Addon",
+  "description": "Vanilla Blood Magic is not over powered for you? Check this out!",
+  "version": "1.0",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [
+    "Haito"
+  ],
+  "credits": "Mod created by following Pahimars vids, thx to 'Andrzej Chmiel' who taught all i know",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"Blood Magic : smth smth",
+  "dependencies": [
+  ]
+}
+]
