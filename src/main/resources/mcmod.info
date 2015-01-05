@@ -14,8 +14,9 @@
   "logoFile": "",
   "screenshots": [
   ],
-  "parent":"Blood Magic : smth smth",
-  "dependencies": [
+  "parent":"BloodMagic-1.7.10-1.2.1b-1.jar",
+  "requiredMods": [ "Forge", "BloodMagic" ],
+  "dependencies": ["BloodMagic"
   ]
 }
 ]

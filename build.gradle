@@ -14,6 +14,32 @@ buildscript {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
 }
+repositories{
+    ivy {
+        name "bloodmagic"
+        artifactPattern "http://91.196.48.111/haito/Android//[module]-[revision]-deobf.[ext]"
+    }
+    maven {
+        name 'CB Maven FS'
+        url "http://chickenbones.net/maven/"
+    }
+    maven {
+        name 'DVS1 Maven FS'
+        url 'http://dvs1.progwml6.com/files/maven'
+    }
+    ivy {
+        name "MineTweaker3"
+        artifactPattern "http://minetweaker3.powerofbytes.com/download/[module]-[revision].[ext]"
+    }
+}
+
+ext.configFile = file "build.properties"
+configFile.withReader {
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
+}
+
 
 apply plugin: 'forge'
 
@@ -27,20 +53,25 @@ minecraft {
 }
 
 dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
+	compile name: "BloodMagic", version: "1.7.10-1.3.0a-1", ext: "jar"
+    compile name: 'MineTweaker3', version: config.minetweaker_version, ext: 'jar'
+    compile "codechicken:CodeChickenLib:1.7.10-1.1.1.99:dev"
+    compile "codechicken:CodeChickenCore:" + config.mc_version + "-" + config.ccc_version + ":dev"
+    compile "codechicken:NotEnoughItems:" + config.mc_version + "-" + config.nei_version + ":dev"
+    compile "codechicken:ForgeMultipart:1.7.10-1.1.0.314:dev"
+
+    //compile "com.wayoftime.bloodmagic:BloodMagic:1.7.10-1.3.0a:dev"
+
     // real examples
     //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
     //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
     // for more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
 }
+
+
 
 processResources
 {

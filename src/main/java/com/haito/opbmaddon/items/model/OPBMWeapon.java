@@ -13,6 +13,7 @@ public class OPBMWeapon extends ItemSword {
     public OPBMWeapon(ToolMaterial toolMaterial){
         super(toolMaterial);
         this.setCreativeTab(OPBMTab.OPBMAddonTab);
+        this.setFull3D();
     }
     @Override
     public String getUnlocalizedName()

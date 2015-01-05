@@ -25,6 +25,7 @@ public class ConfigHandler {
     public static int bloodDrinkerPercentageHealed = 25;
     public static int bloodDrinkerBaseDamage = 3;
     public static double bloodDrinkerOnPlayerAttackedHealed = 0.5;
+    public static int[] bloodDrinkerLevels = {500,1000,2500,5000,10000};
 
     public static void init(File target) {
         if(configuration == null){
@@ -51,6 +52,7 @@ public class ConfigHandler {
         bloodDrinkerBaseDamage = configuration.get(bloodDrinker,"BloodDrinkerBaseDamage", 11, "Damage dealt by sword. It's calculated by adding this value to 4, for egzample if set this to 10 Damage will be 14 etc.").getInt();
         bloodDrinkerPercentageHealed = configuration.get(bloodDrinker,"BloodDrinkerBaseHealed",25,"Healed Percentage").getInt();
         bloodDrinkerOnPlayerAttackedHealed = configuration.get(bloodDrinker,"bloodDrinkerOnPlayerAttackedHealed", 0.5, "How many times less (or more) health you gain when attacking players.").getDouble();
+        bloodDrinkerLevels = configuration.get(bloodDrinker,"levelsOfUpgrades", bloodDrinkerLevels , "How many kills you have to get to level up your bloodDrinker").getIntList();
 
         if (configuration.hasChanged())
             configuration.save();
