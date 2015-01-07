@@ -3,6 +3,7 @@ package com.haito.opbmaddon.items.sigils;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import com.haito.opbmaddon.items.model.OPBMEnergyItem;
+import com.haito.opbmaddon.refference.Names;
 import com.haito.opbmaddon.utility.LogHelper;
 import com.haito.opbmaddon.utility.NBTHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -16,8 +17,9 @@ import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 
 public class ItemSigilHomesoil extends OPBMEnergyItem {
     public ItemSigilHomesoil() {
-        super();
+        //super();
         this.setMaxStackSize(1);
+        this.setUnlocalizedName(Names.Sigils.SigilHomesoil);
         this.setEnergyUsed(50000);
     }
 
@@ -40,7 +42,7 @@ public class ItemSigilHomesoil extends OPBMEnergyItem {
     }
 
     @SubscribeEvent
-    public void onItemUseStart(PlayerUseItemEvent event){
-        LogHelper.info(event.entityPlayer.getBedLocation(0).posX);
+    public void onItemUseStart(PlayerUseItemEvent.Start event){
+        LogHelper.info("Click!");
     }
 }

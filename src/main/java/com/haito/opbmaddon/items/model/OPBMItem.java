@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 
 public class OPBMItem extends Item{
     public OPBMItem(){
-        super();
+        //super();
         this.setNoRepair();
         this.setMaxStackSize(16);
         this.setCreativeTab(OPBMTab.OPBMAddonTab);
