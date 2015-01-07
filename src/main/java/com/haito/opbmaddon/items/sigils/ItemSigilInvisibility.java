@@ -1,4 +1,4 @@
-package com.haito.opbmaddon.items;
+package com.haito.opbmaddon.items.sigils;
 
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;

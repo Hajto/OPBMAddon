@@ -1,6 +1,5 @@
 package com.haito.opbmaddon.handler;
 
-import com.haito.opbmaddon.items.ItemBloodDrinker;
 import com.haito.opbmaddon.refference.MainRef;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

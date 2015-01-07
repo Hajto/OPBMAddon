@@ -1,8 +1,9 @@
 package com.haito.opbmaddon.init;
 
 import com.haito.opbmaddon.handler.ConfigHandler;
-import com.haito.opbmaddon.items.ItemBloodDrinker;
-import com.haito.opbmaddon.items.ItemSigilInvisibility;
+import com.haito.opbmaddon.items.sigils.ItemSigilHomesoil;
+import com.haito.opbmaddon.items.weapon.ItemBloodDrinker;
+import com.haito.opbmaddon.items.sigils.ItemSigilInvisibility;
 import com.haito.opbmaddon.items.model.OPBMItem;
 import com.haito.opbmaddon.items.model.OPBMWeapon;
 import com.haito.opbmaddon.refference.Names;
@@ -15,6 +16,7 @@ public class Items {
 
     //Sigils
     public static final OPBMItem sigilInvisibility = new ItemSigilInvisibility();
+    public static final OPBMItem sigilHomesoil = new ItemSigilHomesoil();
 
     public static void init() {
         //Weapons
@@ -22,5 +24,6 @@ public class Items {
         //Sigils
         if (ConfigHandler.isInvisibleEnabled)
             GameRegistry.registerItem(sigilInvisibility, Names.Sigils.SigilInvisible);
+        GameRegistry.registerItem(sigilHomesoil,Names.Sigils.SigilHomesoil);
     }
 }

@@ -1,5 +1,6 @@
 package com.haito.opbmaddon.items.model;
 
+import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
 import com.haito.opbmaddon.creativeTab.OPBMTab;
 import com.haito.opbmaddon.refference.MainRef;
 import cpw.mods.fml.relauncher.Side;
@@ -9,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 
 
-public class OPBMWeapon extends ItemSword {
+public class OPBMWeapon extends ItemSword implements IBindable{
     public OPBMWeapon(ToolMaterial toolMaterial){
         super(toolMaterial);
         this.setCreativeTab(OPBMTab.OPBMAddonTab);

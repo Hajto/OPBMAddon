@@ -1,4 +1,4 @@
-package com.haito.opbmaddon.items;
+package com.haito.opbmaddon.items.weapon;
 
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import com.haito.opbmaddon.handler.ConfigHandler;

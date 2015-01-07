@@ -11,5 +11,6 @@ public class Names {
     }
     public class Sigils{
         public static final String SigilInvisible = "sigilInvisibility";
+        public static final String SigilHomesoil = "sigilHomesoil";
     }
 }
