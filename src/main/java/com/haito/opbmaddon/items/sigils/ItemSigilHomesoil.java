@@ -5,12 +5,14 @@ import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import com.haito.opbmaddon.items.model.OPBMEnergyItem;
 import com.haito.opbmaddon.utility.LogHelper;
 import com.haito.opbmaddon.utility.NBTHelper;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 
 public class ItemSigilHomesoil extends OPBMEnergyItem {
     public ItemSigilHomesoil() {
@@ -21,8 +23,9 @@ public class ItemSigilHomesoil extends OPBMEnergyItem {
 
     //TODO: ClientOnly old data, ServerOnly Crash, Both? teleport the shit out 2 times?
 
+    /*
     @Override
-    @SideOnly(Side.SERVER)
+    @SideOnly(Side.CLIENT)
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
         if (entityPlayer.isSneaking()) {
             ChunkCoordinates coordinates = getServerBedLocation(entityPlayer, world);
@@ -30,9 +33,14 @@ public class ItemSigilHomesoil extends OPBMEnergyItem {
         }
         return itemStack;
     }
+    */
 
-    @SideOnly(Side.SERVER)
     public ChunkCoordinates getServerBedLocation(EntityPlayer player, World world){
         return player.getBedLocation(world.getWorldInfo().getVanillaDimension());
+    }
+
+    @SubscribeEvent
+    public void onItemUseStart(PlayerUseItemEvent event){
+        LogHelper.info(event.entityPlayer.getBedLocation(0).posX);
     }
 }
