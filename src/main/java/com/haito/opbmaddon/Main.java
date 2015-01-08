@@ -33,7 +33,8 @@ public class Main {
 
 
         Items.init();
-        MinecraftForge.EVENT_BUS.register(Items.sigilHomesoil);
+        //MinecraftForge.EVENT_BUS.register(Items.sigilHomesoil);
+        MinecraftForge.EVENT_BUS.register(new ItemActivatedHandler());
         LogHelper.info("Pre-Initialization has succeded! Yep, no joking it's almost ready :>");
     }
 
