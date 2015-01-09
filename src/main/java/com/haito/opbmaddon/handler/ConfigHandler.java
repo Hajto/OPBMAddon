@@ -24,7 +24,7 @@ public class ConfigHandler {
     public static int bloodDrinkerPercentageHealed = 25;
     public static int bloodDrinkerBaseDamage = 3;
     public static double bloodDrinkerOnPlayerAttackedHealed = 0.5;
-    public static int[] bloodDrinkerLevels = {500,1000,2500,5000,10000};
+    public static int[] bloodDrinkerLevels = {100,500,1000,2500,5000,10000};
 
     public static void init(File target) {
         if(configuration == null){

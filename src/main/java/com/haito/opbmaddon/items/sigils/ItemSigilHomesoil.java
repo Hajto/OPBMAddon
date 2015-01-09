@@ -10,6 +10,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import minetweaker.api.event.PlayerUseItemStartEvent;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
@@ -30,19 +31,24 @@ public class ItemSigilHomesoil extends OPBMEnergyItem {
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
-        if (entityPlayer.isSneaking()) {
+        if (entityPlayer.isSneaking() && !world.isRemote) {
             //if (world.getSpawnPoint().posX != entityPlayer.getBedLocation(world.getWorldInfo().getVanillaDimension()).posX && world.getSpawnPoint().posY != entityPlayer.getBedLocation(world.getWorldInfo().getVanillaDimension()).posY){
                 Bukacz(entityPlayer,world);
                 LogHelper.info("The bed has been set and soon i'll be ready to this up!" + world.getSpawnPoint());
                 LogHelper.info(entityPlayer.getBedLocation(world.getWorldInfo().getVanillaDimension()));
             //}
+        } else {
+            LogHelper.info(entityPlayer.posX + " " + entityPlayer.posZ);
         }
         return itemStack;
     }
 
     public void Bukacz(EntityPlayer player, World world) {
+        LogHelper.info("Bukacz beknal");
         ChunkCoordinates coordinates = player.getBedLocation(world.getWorldInfo().getVanillaDimension());
-        player.setPosition(coordinates.posX,coordinates.posY,coordinates.posZ);
+        LogHelper.info(coordinates.posX + " " +coordinates.posY + " " + coordinates.posZ);
+        player.setPositionAndUpdate(coordinates.posX, coordinates.posY, coordinates.posZ);
+        LogHelper.info(player.posX + " " + player.posZ);
     }
 
 

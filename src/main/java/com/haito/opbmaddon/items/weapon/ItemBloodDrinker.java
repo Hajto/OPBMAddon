@@ -69,7 +69,7 @@ public class ItemBloodDrinker extends OPBMWeapon {
                 NBTHelper.setInteger(itemStack,"bodyCount",placeholder+1);
 
                 //Level up!
-                if(placeholder+1 > ConfigHandler.bloodDrinkerLevels[weaponLevel-1]){
+                if(placeholder+1 > ConfigHandler.bloodDrinkerLevels[weaponLevel]){
                     LogHelper.info(placeholder+1 + " is greater than " +ConfigHandler.bloodDrinkerLevels[weaponLevel-1]);
                     NBTHelper.setInteger(itemStack,"weaponLevel",weaponLevel+1);
                 }
