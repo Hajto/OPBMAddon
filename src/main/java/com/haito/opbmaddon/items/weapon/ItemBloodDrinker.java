@@ -5,6 +5,7 @@ import com.haito.opbmaddon.handler.ConfigHandler;
 import com.haito.opbmaddon.items.model.OPBMWeapon;
 import com.haito.opbmaddon.refference.Materials;
 import com.haito.opbmaddon.refference.Names;
+import com.haito.opbmaddon.refference.Particles;
 import com.haito.opbmaddon.utility.LogHelper;
 import com.haito.opbmaddon.utility.NBTHelper;
 import com.haito.opbmaddon.utility.SoulNetworkMagicHelper;
@@ -106,11 +107,11 @@ public class ItemBloodDrinker extends OPBMWeapon {
                     double motionZ = worldRef.rand.nextGaussian() * 0.02D;
                     LogHelper.info("Explosion expected any time on " + posX + " " + posY + " " + posZ);
                     worldRef.playSoundEffect((float) posX + 0.5F, (float) posY + 0.5F, (float) posZ + 0.5F, "random.fizz", 0.5F, 2.6F + (worldRef.rand.nextFloat() - worldRef.rand.nextFloat()) * 0.8F);
-                    worldRef.spawnParticle("happyVillager", posX + Math.random() - Math.random(), posY + Math.random() - Math.random(), posZ + Math.random() - Math.random(), 0.0D, 0.0D, 0.0D);
+                    worldRef.spawnParticle(Particles.WITCH_MAGIC, posX + Math.random() - Math.random(), posY + Math.random() - Math.random(), posZ + Math.random() - Math.random(), 0.0D, 0.0D, 0.0D);
                     Random rand = new Random();
                     for(int countparticles = 0; countparticles <= 10; ++countparticles)
                     {
-                        worldRef.spawnParticle("reddust", posX + (rand.nextDouble() - 0.5D) * (double)target.width, posY+ rand.nextDouble() * (double)target.height - (double)target.yOffset, posZ+ (rand.nextDouble() - 0.5D) * (double)target.width, 0.0D, 0.0D, 0.0D);
+                        worldRef.spawnParticle(Particles.RED_DUST, posX + (rand.nextDouble() - 0.5D) * (double)target.width, posY+ rand.nextDouble() * (double)target.height - (double)target.yOffset, posZ+ (rand.nextDouble() - 0.5D) * (double)target.width, 0.0D, 0.0D, 0.0D);
                         LogHelper.info(posX + (rand.nextDouble() - 0.5D) * (double)target.width);
                     }
                 }
