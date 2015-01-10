@@ -1,7 +1,7 @@
 package com.haito.opbmaddon.init;
 
 import com.haito.opbmaddon.handler.ConfigHandler;
-import com.haito.opbmaddon.items.sigils.ItemSigilHomesoil;
+import com.haito.opbmaddon.items.sigils.ItemSigilHomeSoil;
 import com.haito.opbmaddon.items.weapon.ItemBloodDrinker;
 import com.haito.opbmaddon.items.sigils.ItemSigilInvisibility;
 import com.haito.opbmaddon.items.model.OPBMItem;
@@ -16,7 +16,7 @@ public class Items {
 
     //Sigils
     public static final OPBMItem sigilInvisibility = new ItemSigilInvisibility();
-    public static final OPBMItem sigilHomesoil = new ItemSigilHomesoil();
+    public static final OPBMItem sigilHomesoil = new ItemSigilHomeSoil();
 
     public static void init() {
         //Weapons

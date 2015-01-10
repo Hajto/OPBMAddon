@@ -3,7 +3,6 @@ package com.haito.opbmaddon;
 import com.haito.opbmaddon.handler.ConfigHandler;
 import com.haito.opbmaddon.handler.ItemActivatedHandler;
 import com.haito.opbmaddon.init.Items;
-import com.haito.opbmaddon.items.sigils.ItemSigilHomesoil;
 import com.haito.opbmaddon.proxy.IProxy;
 import com.haito.opbmaddon.refference.MainRef;
 import com.haito.opbmaddon.utility.LogHelper;
@@ -13,7 +12,6 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 
 
