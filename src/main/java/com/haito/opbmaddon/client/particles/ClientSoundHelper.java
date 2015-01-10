@@ -1,6 +1,7 @@
-package com.haito.opbmaddon.utility;
+package com.haito.opbmaddon.client.particles;
 
 import com.haito.opbmaddon.refference.Particles;
+import com.haito.opbmaddon.utility.LogHelper;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -11,6 +12,6 @@ public class ClientSoundHelper {
     {
         //It's kinda working, everything executes just right, but the final execution method is.... not working
         FMLClientHandler.instance().getWorldClient().playSoundEffect(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, soundName, volume, pitch);
-        LogHelper.info("ClientSoundHlper should 5 playing "+ soundName + " on " + xCoord + " " + yCoord + " " + zCoord);
+        LogHelper.info("ClientSoundHlper should 5 playing " + soundName + " on " + xCoord + " " + yCoord + " " + zCoord);
     }
 }

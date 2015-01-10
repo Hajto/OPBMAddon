@@ -5,9 +5,6 @@ import com.haito.opbmaddon.network.message.MessageSoundEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 
-/**
- * Created by Haito on 2015-01-10.
- */
 public class CommonSoundHelper {
     public static void playSoundAt(EntityPlayer entityPlayer, String soundName, float volume, float pitch, double range)
     {

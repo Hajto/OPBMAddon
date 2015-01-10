@@ -6,10 +6,7 @@ import com.haito.opbmaddon.items.model.OPBMWeapon;
 import com.haito.opbmaddon.refference.Materials;
 import com.haito.opbmaddon.refference.Names;
 import com.haito.opbmaddon.refference.Particles;
-import com.haito.opbmaddon.utility.CommonSoundHelper;
-import com.haito.opbmaddon.utility.LogHelper;
-import com.haito.opbmaddon.utility.NBTHelper;
-import com.haito.opbmaddon.utility.SoulNetworkMagicHelper;
+import com.haito.opbmaddon.utility.*;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -100,9 +97,10 @@ public class ItemBloodDrinker extends OPBMWeapon {
             double posX = target.posX;
             double posY = target.posY + 1;
             double posZ = target.posZ;
+            target.posY += 1;
             LogHelper.info("Explosion expected any time on " + posX + " " + posY + " " + posZ);
             worldRef.playSoundEffect((float) posX + 0.5F, (float) posY + 0.5F, (float) posZ + 0.5F, "random.fizz", 0.5F, 2.6F + (worldRef.rand.nextFloat() - worldRef.rand.nextFloat()) * 0.8F);
-            worldRef.spawnParticle(Particles.WITCH_MAGIC, posX + Math.random() - Math.random(), posY + Math.random() - Math.random(), posZ + Math.random() - Math.random(), 0.0D, 0.0D, 0.0D);
+            CommonParticlesHelper.showParticleAt(Particles.WITCH_MAGIC, target, 0F, 0F, 0F);
 
         }
         if (((EntityPlayer) attacker).worldObj.isRemote) {

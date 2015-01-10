@@ -4,6 +4,7 @@ import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import com.haito.opbmaddon.items.model.OPBMEnergyItem;
 import com.haito.opbmaddon.refference.Names;
 import com.haito.opbmaddon.refference.Particles;
+import com.haito.opbmaddon.utility.CommonParticlesHelper;
 import com.haito.opbmaddon.utility.LogHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -29,7 +30,8 @@ public class ItemSigilHomeSoil extends OPBMEnergyItem {
             double posX = entityPlayer.posX;
             double posY = entityPlayer.posY + 1;
             double posZ = entityPlayer.posZ;
-            world.spawnParticle(Particles.WITCH_MAGIC, posX + Math.random() - Math.random(), posY + Math.random() - Math.random(), posZ + Math.random() - Math.random(), 0.0D, 0.0D, 0.0D);
+            //world.spawnParticle(Particles.WITCH_MAGIC, posX + Math.random() - Math.random(), posY + Math.random() - Math.random(), posZ + Math.random() - Math.random(), 0.0D, 0.0D, 0.0D);
+            CommonParticlesHelper.showParticleAt(Particles.WITCH_MAGIC,entityPlayer,0F,0F,0F);
         }
         return itemStack;
     }
