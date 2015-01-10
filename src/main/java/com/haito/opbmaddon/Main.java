@@ -3,6 +3,7 @@ package com.haito.opbmaddon;
 import com.haito.opbmaddon.handler.ConfigHandler;
 import com.haito.opbmaddon.handler.ItemActivatedHandler;
 import com.haito.opbmaddon.init.Items;
+import com.haito.opbmaddon.network.NetworkHandler;
 import com.haito.opbmaddon.proxy.IProxy;
 import com.haito.opbmaddon.refference.MainRef;
 import com.haito.opbmaddon.utility.LogHelper;
@@ -31,6 +32,7 @@ public class Main {
 
 
         Items.init();
+        NetworkHandler.init();
         //MinecraftForge.EVENT_BUS.register(Items.sigilHomesoil);
         MinecraftForge.EVENT_BUS.register(new ItemActivatedHandler());
         LogHelper.info("Pre-Initialization has succeded! Yep, no joking it's almost ready :>");

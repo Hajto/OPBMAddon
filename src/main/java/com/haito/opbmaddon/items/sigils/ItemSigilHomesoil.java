@@ -3,6 +3,7 @@ package com.haito.opbmaddon.items.sigils;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import com.haito.opbmaddon.items.model.OPBMEnergyItem;
 import com.haito.opbmaddon.refference.Names;
+import com.haito.opbmaddon.refference.Particles;
 import com.haito.opbmaddon.utility.LogHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,8 +24,12 @@ public class ItemSigilHomeSoil extends OPBMEnergyItem {
         if (entityPlayer.isSneaking() && !world.isRemote) {
             Bukacz(entityPlayer,world);
             EnergyItems.syphonBatteries(itemStack, entityPlayer, this.getEnergyUsed());
-        } else {
+        } else if(world.isRemote){
             LogHelper.info(entityPlayer.posX + " " + entityPlayer.posZ);
+            double posX = entityPlayer.posX;
+            double posY = entityPlayer.posY + 1;
+            double posZ = entityPlayer.posZ;
+            world.spawnParticle(Particles.WITCH_MAGIC, posX + Math.random() - Math.random(), posY + Math.random() - Math.random(), posZ + Math.random() - Math.random(), 0.0D, 0.0D, 0.0D);
         }
         return itemStack;
     }

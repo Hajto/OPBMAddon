@@ -6,6 +6,7 @@ import com.haito.opbmaddon.items.model.OPBMWeapon;
 import com.haito.opbmaddon.refference.Materials;
 import com.haito.opbmaddon.refference.Names;
 import com.haito.opbmaddon.refference.Particles;
+import com.haito.opbmaddon.utility.CommonSoundHelper;
 import com.haito.opbmaddon.utility.LogHelper;
 import com.haito.opbmaddon.utility.NBTHelper;
 import com.haito.opbmaddon.utility.SoulNetworkMagicHelper;
@@ -33,13 +34,10 @@ public class ItemBloodDrinker extends OPBMWeapon {
             NBTHelper.setInteger(itemStack, "bodyCount", 99);
         } else {
             SoulNetworkHandler.checkAndSetItemOwner(itemStack, entityPlayer);
-            Random rand = new Random();
-            for(int countparticles = 0; countparticles <= 10; ++countparticles)
-            {
-                world.spawnParticle("reddust", entityPlayer.posX + (rand.nextDouble() - 0.5D) * (double)entityPlayer.width, entityPlayer.posY + rand.nextDouble() * (double)entityPlayer.height - (double)entityPlayer.yOffset, entityPlayer.posZ + (rand.nextDouble() - 0.5D) * (double)entityPlayer.width, 0.0D, 0.0D, 0.0D);
+            if (!world.isRemote) {
+                CommonSoundHelper.playSoundAt(entityPlayer,"random.fizz",5F,10F,100);
             }
-
-            entityPlayer.setItemInUse(itemStack,1000 );
+            //entityPlayer.setItemInUse(itemStack, 1000);
         }
         return itemStack;
     }
@@ -97,27 +95,19 @@ public class ItemBloodDrinker extends OPBMWeapon {
                     foodStats.setFoodLevel(foodStats.getFoodLevel() + 6);
                     foodStats.setFoodSaturationLevel(foodStats.getSaturationLevel() + 4);
                 }
-                if (!worldRef.isRemote) {
-                    LogHelper.info("Initializing stuff and things");
-                    double posX = target.posX;
-                    double posY = target.posY + 1;
-                    double posZ = target.posZ;
-                    double motionX = worldRef.rand.nextGaussian() * 0.02D;
-                    double motionY = worldRef.rand.nextGaussian() * 0.02D;
-                    double motionZ = worldRef.rand.nextGaussian() * 0.02D;
-                    LogHelper.info("Explosion expected any time on " + posX + " " + posY + " " + posZ);
-                    worldRef.playSoundEffect((float) posX + 0.5F, (float) posY + 0.5F, (float) posZ + 0.5F, "random.fizz", 0.5F, 2.6F + (worldRef.rand.nextFloat() - worldRef.rand.nextFloat()) * 0.8F);
-                    worldRef.spawnParticle(Particles.WITCH_MAGIC, posX + Math.random() - Math.random(), posY + Math.random() - Math.random(), posZ + Math.random() - Math.random(), 0.0D, 0.0D, 0.0D);
-                    Random rand = new Random();
-                    for(int countparticles = 0; countparticles <= 10; ++countparticles)
-                    {
-                        worldRef.spawnParticle(Particles.RED_DUST, posX + (rand.nextDouble() - 0.5D) * (double)target.width, posY+ rand.nextDouble() * (double)target.height - (double)target.yOffset, posZ+ (rand.nextDouble() - 0.5D) * (double)target.width, 0.0D, 0.0D, 0.0D);
-                        LogHelper.info(posX + (rand.nextDouble() - 0.5D) * (double)target.width);
-                    }
-                }
             }
-        }
+            LogHelper.info("Initializing stuff and things");
+            double posX = target.posX;
+            double posY = target.posY + 1;
+            double posZ = target.posZ;
+            LogHelper.info("Explosion expected any time on " + posX + " " + posY + " " + posZ);
+            worldRef.playSoundEffect((float) posX + 0.5F, (float) posY + 0.5F, (float) posZ + 0.5F, "random.fizz", 0.5F, 2.6F + (worldRef.rand.nextFloat() - worldRef.rand.nextFloat()) * 0.8F);
+            worldRef.spawnParticle(Particles.WITCH_MAGIC, posX + Math.random() - Math.random(), posY + Math.random() - Math.random(), posZ + Math.random() - Math.random(), 0.0D, 0.0D, 0.0D);
 
+        }
+        if (((EntityPlayer) attacker).worldObj.isRemote) {
+            LogHelper.info("Client side shit");
+        }
         return true;
     }
 
