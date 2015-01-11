@@ -1,6 +1,11 @@
 #Weapons
 item.opbmaddon:bloodDrinker.name=Blood Drinker
+#Sigils
 item.opbmaddon:sigilInvisibility.name=Sigil of Invisible God
 item.opbmaddon:sigilHomesoil.name=Sigil of Home Soil
+#Crafting suplies
+item.opbmaddon:bloodInfusedMetal.name=Blood Infused Metal Ingot
+item.opbmaddon:bloodInfusedGem.name=Blood Infused Gem
+item.opbmaddon:bloodInfusedPearl.name=Blood Infused Pearl
 #Creative Tab
 itemGroup.OPBMAddon=Totally Over Powered Blood Magic Addon

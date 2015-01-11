@@ -16,11 +16,10 @@ public class MessageSoundEvent implements IMessage, IMessageHandler<MessageSound
     private String soundName;
     private float xCoord, yCoord, zCoord;
     private float volume, pitch;
-    private boolean vanilla;
 
-    public MessageSoundEvent() {
+    //TODO:Fix that to be usable again
 
-    }
+    public MessageSoundEvent() {}
 
     public MessageSoundEvent(EntityPlayer entityPlayer, String soundName, float volume, float pitch) {
         this.mostSigUUID = entityPlayer.getUniqueID().getMostSignificantBits();
@@ -74,19 +73,9 @@ public class MessageSoundEvent implements IMessage, IMessageHandler<MessageSound
     @Override
     public IMessage onMessage(MessageSoundEvent event, MessageContext context) {
         UUID originUUID = new UUID(event.mostSigUUID, event.leastSigUUID);
+        Main.proxy.playSoundEffect(event.soundName, event.xCoord, event.yCoord, event.zCoord, event.volume, event.pitch);
 
-        //if (Settings.Sounds.soundMode.equalsIgnoreCase("All"))
-        //{
-            Main.proxy.playSoundEffect(event.soundName, event.xCoord, event.yCoord, event.zCoord, event.volume, event.pitch);
-            //}
-            // else if (Settings.Sounds.soundMode.equalsIgnoreCase("Self"))
-            //{
-            //if (FMLClientHandler.instance().getClient().thePlayer.getUniqueID().equals(originUUID)) {
-               // Main.proxy.playSoundEffect(event.soundName, event.xCoord, event.yCoord, event.zCoord, event.volume, event.pitch);
-           // }
-            //}
-            LogHelper.info("Message received should happen 3");
-            return null;
-        //}
+        LogHelper.info("Message received should happen 3");
+        return null;
     }
 }
