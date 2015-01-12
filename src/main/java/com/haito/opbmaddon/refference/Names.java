@@ -12,6 +12,7 @@ public class Names {
     public class Sigils{
         public static final String SigilInvisible = "sigilInvisibility";
         public static final String SigilHomesoil = "sigilHomesoil";
+        public static final String SigilOfSilkenHand = "sigilSilk";
     }
 
     public static final String BloodInfusedMetal = "bloodInfusedMetal";
