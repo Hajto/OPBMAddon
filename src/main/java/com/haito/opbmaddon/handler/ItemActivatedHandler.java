@@ -19,6 +19,7 @@ public class ItemActivatedHandler {
         LogHelper.info("Booker " + event.x + " " + event.z);
     }
 
+    /*
     @SubscribeEvent
     public void thing(PlayerUseItemEvent.Stop e){
         LogHelper.info("Stop Click " + e.entityPlayer.getHeldItem());
@@ -28,5 +29,5 @@ public class ItemActivatedHandler {
     public void anotherThing(PlayerUseItemEvent.Start event){
         LogHelper.info("Start Click");
         LogHelper.info(event.entityPlayer.getBedLocation(0));
-    }
+    }*/
 }

@@ -10,12 +10,13 @@ import com.haito.opbmaddon.utility.*;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.FoodStats;
 import net.minecraft.world.World;
 
 import java.util.List;
-import java.util.Random;
 
 public class ItemBloodDrinker extends OPBMWeapon {
     public ItemBloodDrinker() {
@@ -31,10 +32,8 @@ public class ItemBloodDrinker extends OPBMWeapon {
             NBTHelper.setInteger(itemStack, "bodyCount", 99);
         } else {
             SoulNetworkHandler.checkAndSetItemOwner(itemStack, entityPlayer);
-            if (!world.isRemote) {
-                CommonSoundHelper.playSoundAt(entityPlayer,"random.fizz",5F,10F,100);
-            }
-            //entityPlayer.setItemInUse(itemStack, 1000);
+            CommonSoundHelper.playSoundAt(entityPlayer, "random.fizz", 5F, 10F, 100);
+            entityPlayer.setItemInUse(itemStack, 1000);
         }
         return itemStack;
     }
@@ -54,6 +53,9 @@ public class ItemBloodDrinker extends OPBMWeapon {
                         calculatedHealed *= ConfigHandler.bloodDrinkerOnPlayerAttackedHealed;
                     //Weapon level 4 - Cursed Blade
                     //TODO: Apply some nasty bad potions effects
+                    if(weaponLevel >= 4){
+                        target.addPotionEffect(new PotionEffect(Potion.weakness.id,120 ,2));
+                    }
                     //Weapon level 5 - health gainud doubled, be realistic no body will kill 10 000 entitites during one playthrough
                     if (weaponLevel == 5) {
                         calculatedHealed *= 2;
