@@ -70,7 +70,7 @@ public class ItemBloodDrinker extends OPBMWeapon {
                     SoulNetworkMagicHelper.appendToSoulNetwork(itemStack.stackTagCompound.getString("ownerName"), (int) (calculatedHealed * 100));
                 }
             }
-            if (target.getHealth() == 0) {
+            if (target.getHealth() == 0 || target.isDead) {
                 LogHelper.info("Kill");
 
                 //Updating bodyCount, i think it's prettier than NBTHelper.setInteger(itemStack,"bodyCount",NBTHelper.getInt(itemStack, "bodyCount")+1)
