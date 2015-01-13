@@ -3,6 +3,7 @@ package com.haito.opbmaddon.items.weapon;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import com.haito.opbmaddon.handler.ConfigHandler;
 import com.haito.opbmaddon.items.model.OPBMWeapon;
+import com.haito.opbmaddon.refference.Configs;
 import com.haito.opbmaddon.refference.Materials;
 import com.haito.opbmaddon.refference.Names;
 import com.haito.opbmaddon.refference.Particles;
@@ -23,7 +24,7 @@ public class ItemBloodDrinker extends OPBMWeapon {
         super(Materials.bloodInfusedMetal);
         this.setMaxStackSize(1);
         this.setUnlocalizedName(Names.Weapons.BloodDrinker);
-        LogHelper.info(ConfigHandler.bloodDrinkerLevels[2]);
+        LogHelper.info(Configs.Items.bloodDrinkerLevels[2]);
     }
 
     @Override
@@ -47,10 +48,10 @@ public class ItemBloodDrinker extends OPBMWeapon {
             if (weaponLevel > 0) {
                 float calculatedHealed = target.prevHealth - target.getHealth();
                 if (calculatedHealed > 0) {
-                    calculatedHealed = (calculatedHealed / 100) * ConfigHandler.bloodDrinkerPercentageHealed;
+                    calculatedHealed = (calculatedHealed / 100) * Configs.Items.bloodDrinkerPercentageHealed;
                     //Weapon level 3 - no penalty when attacking players
                     if (target instanceof EntityPlayer && weaponLevel < 3)
-                        calculatedHealed *= ConfigHandler.bloodDrinkerOnPlayerAttackedHealed;
+                        calculatedHealed *= Configs.Items.bloodDrinkerOnPlayerAttackedHealed;
                     //Weapon level 4 - Cursed Blade
                     //TODO: Apply some nasty bad potions effects
                     if(weaponLevel >= 4){
@@ -78,8 +79,8 @@ public class ItemBloodDrinker extends OPBMWeapon {
                 NBTHelper.setInteger(itemStack, "bodyCount", placeholder + 1);
 
                 //Level up!
-                if (placeholder + 1 >= ConfigHandler.bloodDrinkerLevels[weaponLevel]) {
-                    LogHelper.info(placeholder + 1 + " is greater than " + ConfigHandler.bloodDrinkerLevels[weaponLevel]);
+                if (placeholder + 1 >= Configs.Items.bloodDrinkerLevels[weaponLevel]) {
+                    LogHelper.info(placeholder + 1 + " is greater than " + Configs.Items.bloodDrinkerLevels[weaponLevel]);
                     NBTHelper.setInteger(itemStack, "weaponLevel", weaponLevel + 1);
                     player.addChatComponentMessage(new ChatComponentText("Your weapon is getting stronger! It's now level " + (placeholder + 1)));
                 }

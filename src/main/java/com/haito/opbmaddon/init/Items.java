@@ -10,6 +10,7 @@ import com.haito.opbmaddon.items.weapon.ItemBloodDrinker;
 import com.haito.opbmaddon.items.sigils.ItemSigilInvisibility;
 import com.haito.opbmaddon.items.model.OPBMItem;
 import com.haito.opbmaddon.items.model.OPBMWeapon;
+import com.haito.opbmaddon.refference.Configs;
 import com.haito.opbmaddon.refference.Names;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -33,7 +34,7 @@ public class Items {
         //Weapons
         GameRegistry.registerItem(bloodDrinker, Names.Weapons.BloodDrinker);
         //Sigils
-        if (ConfigHandler.isInvisibleEnabled)
+        if (Configs.Items.isInvisibleEnabled)
             GameRegistry.registerItem(sigilInvisibility, Names.Sigils.SigilInvisible);
         GameRegistry.registerItem(sigilHomesoil,Names.Sigils.SigilHomesoil);
         GameRegistry.registerItem(sigilSilkenHand,Names.Sigils.SigilOfSilkenHand);

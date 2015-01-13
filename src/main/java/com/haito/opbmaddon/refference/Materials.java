@@ -6,5 +6,5 @@ import net.minecraftforge.common.util.EnumHelper;
 
 
 public class Materials {
-    public static Item.ToolMaterial bloodInfusedMetal = EnumHelper.addToolMaterial("BloodInfusedMetal",5,3000, 11.0f,(float) ConfigHandler.bloodDrinkerBaseDamage,100);
+    public static Item.ToolMaterial bloodInfusedMetal = EnumHelper.addToolMaterial("BloodInfusedMetal",5,3000, 11.0f,(float) Configs.Items.bloodDrinkerBaseDamage,100);
 }
