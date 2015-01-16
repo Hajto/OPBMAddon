@@ -14,7 +14,7 @@ public class OPBMItem extends Item{
         this.setNoRepair();
         this.setMaxStackSize(16);
         this.setCreativeTab(OPBMTab.OPBMAddonTab);
-        this.setFull3D();
+        //this.setFull3D();
     }
 
     @Override

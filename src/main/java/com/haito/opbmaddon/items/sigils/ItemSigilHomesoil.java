@@ -9,6 +9,7 @@ import com.haito.opbmaddon.utility.LogHelper;
 import com.haito.opbmaddon.utility.NBTHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
@@ -18,6 +19,7 @@ import java.util.List;
 
 
 public class ItemSigilHomeSoil extends OPBMEnergyItem {
+    //TODO: Reset motion
     public ItemSigilHomeSoil() {
         super();
         this.setMaxStackSize(1);
@@ -66,6 +68,7 @@ public class ItemSigilHomeSoil extends OPBMEnergyItem {
         if (coordinates == null)
             coordinates = player.worldObj.getSpawnPoint();
         player.setPositionAndUpdate(coordinates.posX, coordinates.posY + 1, coordinates.posZ);
+        //player.worldObj.isRemote
     }
 
     @Override

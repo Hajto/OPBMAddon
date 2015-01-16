@@ -2,7 +2,11 @@ package com.haito.opbmaddon.items.model;
 
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**
  * Created by Hajto-Lenovo on 2015-01-05.
@@ -13,6 +17,7 @@ public class OPBMEnergyItem extends OPBMItem implements IBindable{
 
     public OPBMEnergyItem(){
         super();
+        this.setFull3D();
     }
 
     public int getEnergyUsed() {
@@ -47,6 +52,36 @@ public class OPBMEnergyItem extends OPBMItem implements IBindable{
                 player.inventory.dropAllItems();
                 break;
             }
+        }
+    }
+
+    public void setStoredLP(ItemStack itemStack, int lp) {
+        if(!itemStack.hasTagCompound()) {
+            itemStack.setTagCompound(new NBTTagCompound());
+        }
+
+        NBTTagCompound tag = itemStack.getTagCompound();
+        tag.setInteger("storedLP", lp);
+    }
+
+    public int getStoredLP(ItemStack itemStack) {
+        if(!itemStack.hasTagCompound()) {
+            itemStack.setTagCompound(new NBTTagCompound());
+        }
+
+        NBTTagCompound tag = itemStack.getTagCompound();
+        return tag.getInteger("storedLP");
+    }
+
+    @Override
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+        if (par1ItemStack.stackTagCompound != null) {
+            if (par1ItemStack.stackTagCompound.getBoolean("isActive")) {
+                par3List.add("Activated");
+            } else {
+                par3List.add("Deactivated");
+            }
+            par3List.add("Current owner: " + par1ItemStack.stackTagCompound.getString("ownerName"));
         }
     }
 }

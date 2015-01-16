@@ -24,7 +24,7 @@ public class ItemSigilInvisibility extends OPBMEnergyItem {
         this.setEnergyUsed(100000);
     }
 
-    //TODO: Invisible for mobs...
+    //TODO: Wyłączyć spawn particlów, jakis tick listener czy ki choj
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
@@ -35,6 +35,7 @@ public class ItemSigilInvisibility extends OPBMEnergyItem {
                 entityPlayer.setInvisible(true);
                 entityPlayer.capabilities.disableDamage = true;
                 NBTHelper.setBoolean(itemStack, "isActive", true);
+                NBTHelper.setInteger(itemStack,"worldTimeDelay",(int)(world.getWorldTime() - 1L) % 200);
             } else {
                 entityPlayer.setInvisible(false);
                 entityPlayer.capabilities.disableDamage = false;

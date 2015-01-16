@@ -4,6 +4,12 @@ item.opbmaddon:bloodDrinker.name=Blood Drinker
 item.opbmaddon:sigilInvisibility.name=Sigil of Invisible God
 item.opbmaddon:sigilHomesoil.name=Sigil of Home Soil
 item.opbmaddon:sigilSilk.name=Sigil of silky hands
+item.opbmaddon:sigilWeather.name=Sigil of master weather controller
+item.opbmaddon:sigilTreachery.name=Sigil of Treachery
+item.opbmaddon:DebugTool.name=Blood'o'Mancers uber checker thingy
+#Baubles
+item.opbmaddon:ringAwesomnes.name=Ring of Awesomness!
+item.opbmaddon:neckBloodLetter.name=Blood Letter's Necklace
 #Crafting suplies
 item.opbmaddon:bloodInfusedMetal.name=Blood Infused Metal Ingot
 item.opbmaddon:bloodInfusedGem.name=Blood Infused Gem

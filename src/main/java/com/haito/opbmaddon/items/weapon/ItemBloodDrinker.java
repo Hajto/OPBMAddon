@@ -106,8 +106,12 @@ public class ItemBloodDrinker extends OPBMWeapon {
             CommonParticlesHelper.showParticleAt(Particles.WITCH_MAGIC, target, 0F, 0F, 0F);
 
         }
-        if (((EntityPlayer) attacker).worldObj.isRemote) {
-            LogHelper.info("Client side shit");
+        try {
+            if (((EntityPlayer) attacker).worldObj.isRemote) {
+                LogHelper.info("Client side shit");
+            }
+        } catch (ClassCastException e){
+            e.printStackTrace();
         }
         return true;
     }

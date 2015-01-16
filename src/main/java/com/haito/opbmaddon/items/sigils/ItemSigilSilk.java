@@ -4,6 +4,7 @@ import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import com.haito.opbmaddon.items.model.OPBMEnergyItem;
 import com.haito.opbmaddon.refference.Configs;
 import com.haito.opbmaddon.refference.Names;
+import com.haito.opbmaddon.utility.BlockInteractionHelper;
 import com.haito.opbmaddon.utility.LogHelper;
 import com.haito.opbmaddon.utility.NBTHelper;
 import cpw.mods.fml.relauncher.Side;
@@ -24,40 +25,54 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemSigilSilk extends OPBMEnergyItem {
+    public static List<Block> blackList = new ArrayList<Block>();
     public ItemSigilSilk() {
         super();
         this.setMaxStackSize(1);
         this.setUnlocalizedName(Names.Sigils.SigilOfSilkenHand);
+
+        blackList.add(Blocks.bed);
     }
 
     @Override
     public boolean onItemUse(ItemStack itemStack, EntityPlayer entityPlayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         if (world.isRemote || !entityPlayer.isSneaking())
             return false;
+
+        //TODO : For now it's working but i may rebuild it using rayTracing, coz it returns a nice "type" for
+        //TODO : i could differenciate what mod it's in using in instead of manually right clicking to change it
+        //TODO : that could be extremaly fancy!
+
         MovingObjectPosition mouseOver = entityPlayer.rayTrace(5, 1);
+        LogHelper.info("Debug " + mouseOver);
         EnergyItems.checkAndSetItemOwner(itemStack, entityPlayer);
+        //EnergyItems.syphonBatteries(itemStack,entityPlayer,this.getEnergyUsed());
 
         Block target = world.getBlock(x, y, z);
         LogHelper.info(target);
+        //Stub need to change it to more convinient stuff
         if (NBTHelper.getBoolean(itemStack, "isBlockMode")) {
             //If stack contains BLock nbt, below is placing machanic
             if (NBTHelper.getBoolean(itemStack, "contBlock")) {
                 ItemStack holder = ItemStack.loadItemStackFromNBT(NBTHelper.getTagCompound(itemStack, "blockNBT"));
                 Block tempo = Block.getBlockFromItem(holder.getItem());
                 NBTHelper.removeTag(itemStack, "blockNBT");
-                world.setBlock(x, y + 1, z, tempo);
+
+                int[] correctCoords = BlockInteractionHelper.modifyOutChordsBySide(x,y,z,side);
+
+                world.setBlock(correctCoords[0], correctCoords[1] , correctCoords[2], tempo);
                 if (NBTHelper.getBoolean(itemStack, "contTile")) {
                     TileEntity tileEntity = TileEntity.createAndLoadEntity(NBTHelper.getTagCompound(itemStack, "tileNBT"));
-                    world.setTileEntity(x, y + 1, z, tileEntity);
+                    world.setTileEntity(x, y , z, tileEntity);
                     NBTHelper.removeTag(itemStack, "tileNBT");
                 }
                 NBTHelper.setBoolean(itemStack, "contBlock", false);
                 NBTHelper.setBoolean(itemStack, "contTile", false);
-            } else if (target != Blocks.bedrock || Configs.Items.canBedrock) {
-                target = world.getBlock(x, y, z);
+            } else if ((target != Blocks.bedrock || Configs.Items.canBedrock) && !blackList.contains(target)) {
                 NBTTagCompound blockNBT = new NBTTagCompound();
                 ItemStack holder = new ItemStack(target);
                 holder.writeToNBT(blockNBT);
@@ -70,7 +85,7 @@ public class ItemSigilSilk extends OPBMEnergyItem {
                     NBTHelper.setBoolean(itemStack, "contTile", true);
                 }
                 NBTHelper.setString(itemStack, "blockCons", target.getUnlocalizedName());
-                //NBTHelper.setString(itemStack, "blockName", target.getLocalizedName());
+                NBTHelper.setString(itemStack, "blockName", target.getLocalizedName());
                 NBTHelper.setBoolean(itemStack, "contBlock", true);
                 world.removeTileEntity(x, y, z);
                 world.setBlockToAir(x, y, z);
@@ -81,9 +96,10 @@ public class ItemSigilSilk extends OPBMEnergyItem {
             mobNBT = NBTHelper.getTagCompound(itemStack, "mobNBT");
 
             NBTTagList temporary = new NBTTagList();
-            temporary.appendTag(new NBTTagDouble(x));
-            temporary.appendTag(new NBTTagDouble(y+1));
-            temporary.appendTag(new NBTTagDouble(z));
+            int[] correctCoords = BlockInteractionHelper.modifyOutChordsBySide(x,y,z,side);
+            temporary.appendTag(new NBTTagDouble(correctCoords[0]));
+            temporary.appendTag(new NBTTagDouble(correctCoords[1]));
+            temporary.appendTag(new NBTTagDouble(correctCoords[2]));
 
             mobNBT.setTag("Pos",temporary);
             Entity mob = EntityList.createEntityFromNBT(mobNBT,world);

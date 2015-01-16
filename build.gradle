@@ -53,6 +53,11 @@ minecraft {
 }
 
 dependencies {
+
+    compile files(
+            'Baubles-deobf.jar'
+    )
+
 	compile name: "BloodMagic", version: "1.7.10-1.3.0a-1", ext: "jar"
     compile name: 'MineTweaker3', version: config.minetweaker_version, ext: 'jar'
     compile "codechicken:CodeChickenLib:1.7.10-1.1.1.99:dev"
