@@ -1,5 +1,7 @@
 package com.haito.opbmaddon.block;
 
+import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
+import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import codechicken.multipart.TEdgePart;
 import com.haito.opbmaddon.block.model.OPBMBlock;
 import com.haito.opbmaddon.block.model.OPBMBlockContainer;
@@ -7,16 +9,13 @@ import com.haito.opbmaddon.refference.Names;
 import com.haito.opbmaddon.tileEntity.TEPotionStation;
 import com.haito.opbmaddon.utility.LogHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import sun.rmi.runtime.Log;
-
-import java.util.List;
 
 
 public class BlockPotionStation extends OPBMBlockContainer {
@@ -25,8 +24,6 @@ public class BlockPotionStation extends OPBMBlockContainer {
         this.setBlockName(Names.Blocks.PotionStation);
     }
 
-    //@Override
-
 
     @Override
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
@@ -34,14 +31,12 @@ public class BlockPotionStation extends OPBMBlockContainer {
             EntityPlayer entityPlayer = (EntityPlayer) entity;
             LogHelper.info("tick");
             try{
+                world.markBlockForUpdate(x, y, z);
                 TEPotionStation tePotionStation = (TEPotionStation) world.getTileEntity(x,y,z);
-                LogHelper.info(tePotionStation + " teEntity " + tePotionStation.potion);
                 ItemPotion effect = (ItemPotion) tePotionStation.potion.getItem();
-                LogHelper.info(effect + " smth " + effect.getEffects(tePotionStation.potion).get(0));
                 PotionEffect potionEffect = (PotionEffect) effect.getEffects(tePotionStation.potion).get(0);
-                LogHelper.info(potionEffect + " effect");
                 entityPlayer.addPotionEffect(new PotionEffect(potionEffect.getPotionID(),120));
-                LogHelper.info(Potion.confusion.getId());
+                SoulNetworkHandler.syphonFromNetwork(entityPlayer.getDisplayName(),10000);
             } catch (NullPointerException e){
                 LogHelper.off(e);
             }
@@ -63,5 +58,13 @@ public class BlockPotionStation extends OPBMBlockContainer {
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
         return new TEPotionStation();
+    }
+    @Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLivingBase, ItemStack p_149689_6_) {
+        if(!world.isRemote && entityLivingBase instanceof EntityPlayer){
+            LogHelper.info(((EntityPlayer) entityLivingBase).getDisplayName());
+            TEPotionStation tePotionStation = (TEPotionStation) world.getTileEntity(x, y, z);
+            tePotionStation.owner = ((EntityPlayer) entityLivingBase).getDisplayName();
+        }
     }
 }
