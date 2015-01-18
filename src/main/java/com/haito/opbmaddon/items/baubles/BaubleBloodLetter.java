@@ -31,7 +31,7 @@ public class BaubleBloodLetter extends OPBMBauble {
 
     @Override
     public BaubleType getBaubleType(ItemStack itemStack) {
-        return BaubleType.BELT;
+        return BaubleType.AMULET;
     }
 
     @Override

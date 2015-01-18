@@ -3,9 +3,16 @@ package com.haito.opbmaddon.proxy;
 
 import com.haito.opbmaddon.client.particles.ClientParticleHandler;
 import com.haito.opbmaddon.client.particles.ClientSoundHelper;
+import com.haito.opbmaddon.client.renderer.tileEntity.testRenderTile;
+import com.haito.opbmaddon.tileEntity.debugTileEntity;
 import com.haito.opbmaddon.utility.LogHelper;
+import cpw.mods.fml.client.registry.ClientRegistry;
 
 public class ClientProxy extends CommonProxy {
+
+    public void initRenderStuff(){
+        ClientRegistry.bindTileEntitySpecialRenderer(debugTileEntity.class, new testRenderTile());
+    }
 
     @Override
     public void playSoundEffect(String soundName, float xCoord, float yCoord, float zCoord, float volume, float pitch)

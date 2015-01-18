@@ -20,6 +20,10 @@ public class Names {
         public static final String BaubleRingAwesomness="ringAwesomnes";
         public static final String BaubleNeckLetter="neckBloodLetter";
     }
+    public static class Containers{
+        public static final String ContainerPrefix = "container.opbmaddon" ;
+        public static final String TEPotionStation = ContainerPrefix + Blocks.PotionStation;
+    }
 
     public static final String BloodInfusedMetal = "bloodInfusedMetal";
     public static final String BloodInfusedGem = "bloodInfusedGem";
@@ -27,4 +31,8 @@ public class Names {
 
     //Debug tool
     public static final String EverythingChecker = "DebugTool";
+
+    public static class Blocks{
+        public static String PotionStation = "potionStation";
+    }
 }

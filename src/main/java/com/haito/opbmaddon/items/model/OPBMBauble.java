@@ -64,6 +64,7 @@ public class OPBMBauble extends OPBMEnergyItem implements IBauble {
                             return slotContents.copy();
                         }
                         onEquipped(itemStack, entityPlayer);
+                        --itemStack.stackSize;
                         break;
                     }
                 }

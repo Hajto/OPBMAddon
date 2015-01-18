@@ -14,5 +14,7 @@ item.opbmaddon:neckBloodLetter.name=Blood Letter's Necklace
 item.opbmaddon:bloodInfusedMetal.name=Blood Infused Metal Ingot
 item.opbmaddon:bloodInfusedGem.name=Blood Infused Gem
 item.opbmaddon:bloodInfusedPearl.name=Blood Infused Pearl
+#Blocks
+tile.opbmaddon:potionStation.name=Potion Station
 #Creative Tab
 itemGroup.OPBMAddon=Totally Over Powered Blood Magic Addon
