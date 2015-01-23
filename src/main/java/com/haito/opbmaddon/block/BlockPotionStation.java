@@ -1,9 +1,6 @@
 package com.haito.opbmaddon.block;
 
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
-import WayofTime.alchemicalWizardry.common.items.EnergyItems;
-import codechicken.multipart.TEdgePart;
-import com.haito.opbmaddon.block.model.OPBMBlock;
 import com.haito.opbmaddon.block.model.OPBMBlockContainer;
 import com.haito.opbmaddon.refference.Names;
 import com.haito.opbmaddon.tileEntity.TEPotionStation;
@@ -21,7 +18,7 @@ import net.minecraft.world.World;
 public class BlockPotionStation extends OPBMBlockContainer {
     public BlockPotionStation(){
         super();
-        this.setBlockName(Names.Blocks.PotionStation);
+        this.setBlockName(Names.Blocks.POTION_STATION);
     }
 
 

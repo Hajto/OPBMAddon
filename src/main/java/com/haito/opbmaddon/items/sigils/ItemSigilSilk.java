@@ -33,7 +33,7 @@ public class ItemSigilSilk extends OPBMEnergyItem {
     public ItemSigilSilk() {
         super();
         this.setMaxStackSize(1);
-        this.setUnlocalizedName(Names.Sigils.SigilOfSilkenHand);
+        this.setUnlocalizedName(Names.Sigils.SILKEN_HAND);
 
         blackList.add(Blocks.bed);
     }

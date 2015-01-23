@@ -15,7 +15,7 @@ public class debugBlock extends BlockContainer {
     //And the second three are the top-right corner.
     public debugBlock() {
         super(Material.iron);
-        this.setCreativeTab(OPBMTab.OPBMAddonTab);
+        this.setCreativeTab(OPBMTab.OPBMADDON_TAB);
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1F, 2.0F, 1F);
     }
 

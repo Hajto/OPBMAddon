@@ -1,7 +1,6 @@
 package com.haito.opbmaddon.items.weapon;
 
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
-import com.haito.opbmaddon.handler.ConfigHandler;
 import com.haito.opbmaddon.items.model.OPBMWeapon;
 import com.haito.opbmaddon.refference.Configs;
 import com.haito.opbmaddon.refference.Materials;
@@ -23,7 +22,7 @@ public class ItemBloodDrinker extends OPBMWeapon {
     public ItemBloodDrinker() {
         super(Materials.bloodInfusedMetal);
         this.setMaxStackSize(1);
-        this.setUnlocalizedName(Names.Weapons.BloodDrinker);
+        this.setUnlocalizedName(Names.Weapons.BLOOD_DRINKER);
         LogHelper.info(Configs.Items.bloodDrinkerLevels[2]);
     }
 

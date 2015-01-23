@@ -11,11 +11,11 @@ public class NEIConfigMain implements IConfigureNEI {
 
     @Override
     public String getName() {
-        return MainRef.modName;
+        return MainRef.MOD_NAME;
     }
 
     @Override
     public String getVersion() {
-        return MainRef.version;
+        return MainRef.VERSION;
     }
 }

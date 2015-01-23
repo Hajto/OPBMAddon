@@ -19,13 +19,13 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 
-@Mod(modid = MainRef.modId, name = MainRef.modName, version = MainRef.version, guiFactory = MainRef.GuiFactory)
+@Mod(modid = MainRef.MOD_ID, name = MainRef.MOD_NAME, version = MainRef.VERSION, guiFactory = MainRef.GUI_FACTORY)
 public class Main {
 
-    @Mod.Instance(MainRef.modId)
+    @Mod.Instance(MainRef.MOD_ID)
     public static Main mainInstance;
 
-    @SidedProxy(serverSide = MainRef.ServerProxy,clientSide = MainRef.ClientProxy,modId = MainRef.modId)
+    @SidedProxy(serverSide = MainRef.SERVER_PROXY,clientSide = MainRef.CLIENT_PROXY,modId = MainRef.MOD_ID)
     public static IProxy proxy;
 
     @Mod.EventHandler

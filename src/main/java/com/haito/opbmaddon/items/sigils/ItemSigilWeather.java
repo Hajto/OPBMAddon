@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 public class ItemSigilWeather extends OPBMItem {
     public ItemSigilWeather(){
         super();
-        this.setUnlocalizedName(Names.Sigils.SigilWeather);
+        this.setUnlocalizedName(Names.Sigils.WEATHER);
         this.setMaxStackSize(1);
     }
 

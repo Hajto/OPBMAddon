@@ -1,7 +1,6 @@
 package com.haito.opbmaddon.items;
 
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
-import com.haito.opbmaddon.init.ModTileEntity;
 import com.haito.opbmaddon.items.model.OPBMEnergyItem;
 import com.haito.opbmaddon.refference.Names;
 import com.haito.opbmaddon.tileEntity.TEPotionStation;
@@ -20,7 +19,7 @@ public class DebugItem extends OPBMEnergyItem {
     public DebugItem(){
         super();
         this.setMaxStackSize(1);
-        this.setUnlocalizedName(Names.EverythingChecker);
+        this.setUnlocalizedName(Names.EVERYTHING_CHECKER);
         this.setEnergyUsed(100);
     }
 

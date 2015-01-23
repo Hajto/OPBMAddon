@@ -2,7 +2,9 @@ package com.haito.opbmaddon.client.renderer.tileEntity;
 
 import com.haito.opbmaddon.client.renderer.models.DebugModel;
 import com.haito.opbmaddon.init.ModItems;
+import com.haito.opbmaddon.refference.Models;
 import com.haito.opbmaddon.refference.Textures;
+import com.haito.opbmaddon.utility.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -17,10 +19,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.AdvancedModelLoader;
+import net.minecraftforge.client.model.IModelCustom;
 import org.lwjgl.opengl.GL11;
 
 public class testRenderTile extends TileEntitySpecialRenderer {
-    private DebugModel model;
+    //private DebugModel model;
+    IModelCustom model;
     private RenderItem customRenderItem;
     private ResourceLocation textures;
     public testRenderTile(){
@@ -33,8 +38,9 @@ public class testRenderTile extends TileEntitySpecialRenderer {
             }
         };
         customRenderItem.setRenderManager(RenderManager.instance);
-        this.model = new DebugModel();
-        textures = Textures.CustomModel.debug;
+        //this.model = new DebugModel();
+        this.model = AdvancedModelLoader.loadModel(Models.ALUDEL);
+        textures = Textures.CustomModel.PIRAMID;
     }
 
     private void adjustRotatePivotViaMeta(World world, int x, int y, int z) {
@@ -50,13 +56,17 @@ public class testRenderTile extends TileEntitySpecialRenderer {
         GL11.glPushMatrix();
         //This is setting the initial location.
         GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
-        Minecraft.getMinecraft().renderEngine.bindTexture(textures);
+        //Minecraft.getMinecraft().renderEngine.bindTexture(textures);
         //This rotation part is very important! Without it, your model will render upside-down! And for some reason you DO need PushMatrix again!
         GL11.glPushMatrix();
-        GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
+        GL11.glRotatef(0F, 0F, 45F, 1.0F);
+        GL11.glScaled(0.25F,0.25F,0.25F);
         //A reference to your Model file. Again, very important.
-        this.model.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+        //this.model.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
         //Tell it to stop rendering for both the PushMatrix's
+        bindTexture(textures);
+        model.renderAll();
+        bindTexture(textures);
         GL11.glPopMatrix();
         GL11.glPopMatrix();
         GL11.glPushMatrix();

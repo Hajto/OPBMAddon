@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 public class OPBMBlock extends Block {
     public OPBMBlock(Material material) {
         super(material);
-        this.setCreativeTab(OPBMTab.OPBMAddonTab);
+        this.setCreativeTab(OPBMTab.OPBMADDON_TAB);
     }
 
     public OPBMBlock(){
@@ -22,7 +22,7 @@ public class OPBMBlock extends Block {
     @Override
     public String getUnlocalizedName()
     {
-        return String.format("tile.%s%s", Names.ResourcePrefix, getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
+        return String.format("tile.%s%s", Names.RESOURCE_PREFIX, getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
     }
 
     @Override

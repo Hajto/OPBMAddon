@@ -1,12 +1,12 @@
 package com.haito.opbmaddon.init;
 
-import com.haito.opbmaddon.handler.ConfigHandler;
 import com.haito.opbmaddon.items.BloodInfusedGem;
 import com.haito.opbmaddon.items.BloodInfusedIngot;
 import com.haito.opbmaddon.items.BloodInfusedPearl;
 import com.haito.opbmaddon.items.DebugItem;
-import com.haito.opbmaddon.items.baubles.BaubleBloodLetter;
-import com.haito.opbmaddon.items.baubles.BaubleRingAwesomnes;
+import com.haito.opbmaddon.items.baubles.BloodLetter;
+import com.haito.opbmaddon.items.baubles.NeckFortitude;
+import com.haito.opbmaddon.items.baubles.RingAwesomnes;
 import com.haito.opbmaddon.items.sigils.*;
 import com.haito.opbmaddon.items.weapon.ItemBloodDrinker;
 import com.haito.opbmaddon.items.model.OPBMItem;
@@ -16,7 +16,7 @@ import com.haito.opbmaddon.refference.MainRef;
 import com.haito.opbmaddon.refference.Names;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@GameRegistry.ObjectHolder(MainRef.modId)
+@GameRegistry.ObjectHolder(MainRef.MOD_ID)
 public class ModItems {
 
     //Weapons
@@ -31,8 +31,9 @@ public class ModItems {
     public static final OPBMItem debugTool = new DebugItem();
 
     //Baubles
-    public static final OPBMItem ringAwesomness =  new BaubleRingAwesomnes();
-    public static final OPBMItem neckBloodLetter = new BaubleBloodLetter();
+    public static final OPBMItem ringAwesomness =  new RingAwesomnes();
+    public static final OPBMItem neckFortitude = new NeckFortitude();
+    public static final OPBMItem neckBloodLetter = new BloodLetter();
 
     //Crafting supplies
     public static final OPBMItem bloodIngot = new BloodInfusedIngot();
@@ -42,21 +43,22 @@ public class ModItems {
 
     public static void init() {
         //Weapons
-        GameRegistry.registerItem(bloodDrinker, Names.Weapons.BloodDrinker);
+        GameRegistry.registerItem(bloodDrinker, Names.Weapons.BLOOD_DRINKER);
         //Sigils
         if (Configs.Items.isInvisibleEnabled)
-            GameRegistry.registerItem(sigilInvisibility, Names.Sigils.SigilInvisible);
-        GameRegistry.registerItem(sigilHomesoil,Names.Sigils.SigilHomesoil);
-        GameRegistry.registerItem(sigilSilkenHand,Names.Sigils.SigilOfSilkenHand);
-        GameRegistry.registerItem(sigilWeather,Names.Sigils.SigilWeather);
-        GameRegistry.registerItem(sigilTreachery,Names.Sigils.SigilOfTreachery);
-        GameRegistry.registerItem(debugTool,Names.EverythingChecker);
+            GameRegistry.registerItem(sigilInvisibility, Names.Sigils.INVISIBILITY);
+        GameRegistry.registerItem(sigilHomesoil,Names.Sigils.HOMELSOIL);
+        GameRegistry.registerItem(sigilSilkenHand,Names.Sigils.SILKEN_HAND);
+        GameRegistry.registerItem(sigilWeather,Names.Sigils.WEATHER);
+        GameRegistry.registerItem(sigilTreachery,Names.Sigils.TREACHERY);
+        GameRegistry.registerItem(debugTool,Names.EVERYTHING_CHECKER);
         //Baubless
-        GameRegistry.registerItem(ringAwesomness,Names.Baubles.BaubleRingAwesomness);
-        GameRegistry.registerItem(neckBloodLetter,Names.Baubles.BaubleNeckLetter);
+        GameRegistry.registerItem(ringAwesomness,Names.Baubles.RING_AWESOMNESS);
+        GameRegistry.registerItem(neckBloodLetter,Names.Baubles.NECK_PACK);
+        GameRegistry.registerItem(neckFortitude,Names.Baubles.NECK_FORTITUDE);
         //Crafting suplies
-        GameRegistry.registerItem(bloodIngot,Names.BloodInfusedMetal);
-        GameRegistry.registerItem(bloodGem,Names.BloodInfusedGem);
-        GameRegistry.registerItem(bloodPearl,Names.BloodInfusedPearl);
+        GameRegistry.registerItem(bloodIngot,Names.BLOOD_INFUSED_METAL);
+        GameRegistry.registerItem(bloodGem,Names.BLOOD_INFUSED_GEM);
+        GameRegistry.registerItem(bloodPearl,Names.BLOOD_INFUSED_PEARL);
     }
 }

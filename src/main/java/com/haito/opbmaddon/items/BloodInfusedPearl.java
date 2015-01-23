@@ -2,7 +2,6 @@ package com.haito.opbmaddon.items;
 
 import com.haito.opbmaddon.items.model.OPBMItem;
 import com.haito.opbmaddon.refference.Names;
-import com.haito.opbmaddon.utility.LogHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +20,7 @@ public class BloodInfusedPearl extends OPBMItem {
 
     public BloodInfusedPearl() {
         super();
-        this.setUnlocalizedName(Names.BloodInfusedPearl);
+        this.setUnlocalizedName(Names.BLOOD_INFUSED_PEARL);
         this.setMaxStackSize(16);
     }
 

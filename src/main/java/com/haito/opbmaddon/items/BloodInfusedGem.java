@@ -1,17 +1,14 @@
 package com.haito.opbmaddon.items;
 
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
-import WayofTime.alchemicalWizardry.common.potion.PotionSoulFray;
 import com.haito.opbmaddon.items.model.OPBMItem;
 import com.haito.opbmaddon.refference.Names;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.world.World;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -20,7 +17,7 @@ import java.util.List;
 public class BloodInfusedGem extends OPBMItem{
     public BloodInfusedGem(){
         super();
-        this.setUnlocalizedName(Names.BloodInfusedGem);
+        this.setUnlocalizedName(Names.BLOOD_INFUSED_GEM);
         this.setMaxStackSize(16);
     }
 

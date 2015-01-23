@@ -1,5 +1,6 @@
 package com.haito.opbmaddon.items.model;
 
+import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
@@ -11,6 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class OPBMBauble extends OPBMEnergyItem implements IBauble {
+    private int energyUsed = 0;
+
     public OPBMBauble() {
         super();
         this.setMaxStackSize(1);
@@ -56,6 +59,7 @@ public class OPBMBauble extends OPBMEnergyItem implements IBauble {
                 if (baubles.isItemValidForSlot(i, itemStack)) {
                     ItemStack slotContents = baubles.getStackInSlot(i);
                     if (slotContents == null || ((IBauble) slotContents.getItem()).canUnequip(slotContents, entityPlayer)) {
+                        EnergyItems.checkAndSetItemOwner(itemStack,entityPlayer);
                         baubles.setInventorySlotContents(i, itemStack.copy());
                         if (!entityPlayer.capabilities.isCreativeMode)
                             entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
@@ -70,12 +74,22 @@ public class OPBMBauble extends OPBMEnergyItem implements IBauble {
                 }
             }
         } else {
-            specialStuff(itemStack,world,entityPlayer);
+            specialStuff(itemStack, world, entityPlayer);
         }
         return itemStack;
     }
 
     public void specialStuff(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
         //Stub
+    }
+
+    @Override
+    public int getEnergyUsed() {
+        return energyUsed;
+    }
+
+    @Override
+    public void setEnergyUsed(int energyUsed) {
+        this.energyUsed = energyUsed;
     }
 }

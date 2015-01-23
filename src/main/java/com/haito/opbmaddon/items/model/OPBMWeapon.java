@@ -13,19 +13,19 @@ import net.minecraft.item.ItemSword;
 public class OPBMWeapon extends ItemSword implements IBindable{
     public OPBMWeapon(ToolMaterial toolMaterial){
         super(toolMaterial);
-        this.setCreativeTab(OPBMTab.OPBMAddonTab);
+        this.setCreativeTab(OPBMTab.OPBMADDON_TAB);
         this.setFull3D();
     }
     @Override
     public String getUnlocalizedName()
     {
-        return String.format("item.%s%s", MainRef.modId.toLowerCase() + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
+        return String.format("item.%s%s", MainRef.MOD_ID.toLowerCase() + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
     }
 
     @Override
     public String getUnlocalizedName(ItemStack itemStack)
     {
-        return String.format("item.%s%s", MainRef.modId.toLowerCase() + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
+        return String.format("item.%s%s", MainRef.MOD_ID.toLowerCase() + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
     }
 
     @Override

@@ -9,7 +9,6 @@ import com.haito.opbmaddon.utility.LogHelper;
 import com.haito.opbmaddon.utility.NBTHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
@@ -23,7 +22,7 @@ public class ItemSigilHomeSoil extends OPBMEnergyItem {
     public ItemSigilHomeSoil() {
         super();
         this.setMaxStackSize(1);
-        this.setUnlocalizedName(Names.Sigils.SigilHomesoil);
+        this.setUnlocalizedName(Names.Sigils.HOMELSOIL);
         this.setEnergyUsed(50000);
         this.setFull3D();
     }

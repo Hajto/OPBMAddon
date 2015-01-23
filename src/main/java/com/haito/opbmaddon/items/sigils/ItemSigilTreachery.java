@@ -23,7 +23,7 @@ public class ItemSigilTreachery extends OPBMEnergyItem {
     public ItemSigilTreachery() {
         super();
         this.setEnergyUsed(10000);
-        this.setUnlocalizedName(Names.Sigils.SigilOfTreachery);
+        this.setUnlocalizedName(Names.Sigils.TREACHERY);
         this.setMaxStackSize(1);
     }
 

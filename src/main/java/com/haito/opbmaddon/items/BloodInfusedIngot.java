@@ -9,7 +9,7 @@ import com.haito.opbmaddon.refference.Names;
 public class BloodInfusedIngot extends OPBMItem{
     public BloodInfusedIngot(){
         super();
-        this.setUnlocalizedName(Names.BloodInfusedMetal);
+        this.setUnlocalizedName(Names.BLOOD_INFUSED_METAL);
         this.setMaxStackSize(64);
     }
 }

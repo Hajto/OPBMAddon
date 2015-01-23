@@ -7,6 +7,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ModTileEntity {
 
     public static void init(){
-        GameRegistry.registerTileEntity(TEPotionStation.class, Names.Containers.TEPotionStation);
+        GameRegistry.registerTileEntity(TEPotionStation.class, Names.Containers.TE_POTION_STATION);
     }
 }

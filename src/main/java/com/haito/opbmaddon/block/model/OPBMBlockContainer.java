@@ -1,7 +1,6 @@
 package com.haito.opbmaddon.block.model;
 
 import com.haito.opbmaddon.refference.Names;
-import com.haito.opbmaddon.tileEntity.TEPotionStation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
@@ -28,7 +27,7 @@ public class OPBMBlockContainer extends BlockContainer {
     @Override
     public String getUnlocalizedName()
     {
-        return String.format("tile.%s%s", Names.ResourcePrefix, getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
+        return String.format("tile.%s%s", Names.RESOURCE_PREFIX, getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
     }
 
     @Override

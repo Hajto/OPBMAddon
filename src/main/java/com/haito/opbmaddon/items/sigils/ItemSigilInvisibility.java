@@ -1,17 +1,14 @@
 package com.haito.opbmaddon.items.sigils;
 
-import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import com.haito.opbmaddon.items.model.OPBMEnergyItem;
-import com.haito.opbmaddon.items.model.OPBMItem;
 import com.haito.opbmaddon.refference.Names;
 import com.haito.opbmaddon.utility.NBTHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -20,7 +17,7 @@ public class ItemSigilInvisibility extends OPBMEnergyItem {
     public ItemSigilInvisibility() {
         super();
         this.setMaxStackSize(1);
-        this.setUnlocalizedName(Names.Sigils.SigilInvisible);
+        this.setUnlocalizedName(Names.Sigils.INVISIBILITY);
         this.setEnergyUsed(100000);
     }
 
