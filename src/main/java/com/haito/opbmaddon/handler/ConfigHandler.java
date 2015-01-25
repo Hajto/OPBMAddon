@@ -13,7 +13,7 @@ public class ConfigHandler {
 
     //Items category names
     final static String INSTANT_KILLER = "InstaKillSword";
-    final static String BLOOD_DRINKER = "bloodDrinker";
+    final static String BLOOD_DRINKER = "BLOOD_DRINKER";
     final static String SILKEN_TOUCH = "SigilEntityPickerThingy";
 
 

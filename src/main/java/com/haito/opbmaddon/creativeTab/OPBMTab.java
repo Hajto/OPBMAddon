@@ -9,7 +9,7 @@ public class OPBMTab {
     public static final CreativeTabs OPBMADDON_TAB = new CreativeTabs(MainRef.MOD_ID) {
         @Override
         public Item getTabIconItem() {
-            return ModItems.bloodDrinker;
+            return ModItems.BLOOD_DRINKER;
         }
     };
 }

@@ -20,45 +20,45 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ModItems {
 
     //Weapons
-    public static final OPBMWeapon bloodDrinker = new ItemBloodDrinker();
+    public static final OPBMWeapon BLOOD_DRINKER = new ItemBloodDrinker();
 
     //Sigils
-    public static final OPBMItem sigilInvisibility = new ItemSigilInvisibility();
-    public static final OPBMItem sigilHomesoil = new ItemSigilHomeSoil();
-    public static final OPBMItem sigilSilkenHand = new ItemSigilSilk();
-    public static final OPBMItem sigilWeather = new ItemSigilWeather();
-    public static final OPBMItem sigilTreachery = new ItemSigilTreachery();
+    public static final OPBMItem SIGIL_INVISIBILITY = new ItemSigilInvisibility();
+    public static final OPBMItem SIGIL_HOMESOIL = new ItemSigilHomeSoil();
+    public static final OPBMItem SIGIL_SILKEN_HAND = new ItemSigilSilk();
+    public static final OPBMItem SIGIL_Weather = new ItemSigilWeather();
+    public static final OPBMItem SIGIL_TREACHERY = new ItemSigilTreachery();
     public static final OPBMItem debugTool = new DebugItem();
 
     //Baubles
-    public static final OPBMItem ringAwesomness =  new RingAwesomnes();
-    public static final OPBMItem neckFortitude = new NeckFortitude();
-    public static final OPBMItem neckBloodLetter = new BloodLetter();
+    public static final OPBMItem RING_AWESOMNESS =  new RingAwesomnes();
+    public static final OPBMItem NECK_FORTITUDE = new NeckFortitude();
+    public static final OPBMItem NECK_BLOOD_LETTER = new BloodLetter();
 
     //Crafting supplies
-    public static final OPBMItem bloodIngot = new BloodInfusedIngot();
-    public static final OPBMItem bloodGem = new BloodInfusedGem();
-    public static final OPBMItem bloodPearl = new BloodInfusedPearl();
+    public static final OPBMItem BLOOD_INGOT = new BloodInfusedIngot();
+    public static final OPBMItem BLOOD_GEM = new BloodInfusedGem();
+    public static final OPBMItem BLOOD_PEARL = new BloodInfusedPearl();
 
 
     public static void init() {
         //Weapons
-        GameRegistry.registerItem(bloodDrinker, Names.Weapons.BLOOD_DRINKER);
+        GameRegistry.registerItem(BLOOD_DRINKER, Names.Weapons.BLOOD_DRINKER);
         //Sigils
         if (Configs.Items.isInvisibleEnabled)
-            GameRegistry.registerItem(sigilInvisibility, Names.Sigils.INVISIBILITY);
-        GameRegistry.registerItem(sigilHomesoil,Names.Sigils.HOMELSOIL);
-        GameRegistry.registerItem(sigilSilkenHand,Names.Sigils.SILKEN_HAND);
-        GameRegistry.registerItem(sigilWeather,Names.Sigils.WEATHER);
-        GameRegistry.registerItem(sigilTreachery,Names.Sigils.TREACHERY);
+            GameRegistry.registerItem(SIGIL_INVISIBILITY, Names.Sigils.INVISIBILITY);
+        GameRegistry.registerItem(SIGIL_HOMESOIL,Names.Sigils.HOMELSOIL);
+        GameRegistry.registerItem(SIGIL_SILKEN_HAND,Names.Sigils.SILKEN_HAND);
+        GameRegistry.registerItem(SIGIL_Weather,Names.Sigils.WEATHER);
+        GameRegistry.registerItem(SIGIL_TREACHERY,Names.Sigils.TREACHERY);
         GameRegistry.registerItem(debugTool,Names.EVERYTHING_CHECKER);
         //Baubless
-        GameRegistry.registerItem(ringAwesomness,Names.Baubles.RING_AWESOMNESS);
-        GameRegistry.registerItem(neckBloodLetter,Names.Baubles.NECK_PACK);
-        GameRegistry.registerItem(neckFortitude,Names.Baubles.NECK_FORTITUDE);
+        GameRegistry.registerItem(RING_AWESOMNESS,Names.Baubles.RING_AWESOMNESS);
+        GameRegistry.registerItem(NECK_BLOOD_LETTER,Names.Baubles.NECK_PACK);
+        GameRegistry.registerItem(NECK_FORTITUDE,Names.Baubles.NECK_FORTITUDE);
         //Crafting suplies
-        GameRegistry.registerItem(bloodIngot,Names.BLOOD_INFUSED_METAL);
-        GameRegistry.registerItem(bloodGem,Names.BLOOD_INFUSED_GEM);
-        GameRegistry.registerItem(bloodPearl,Names.BLOOD_INFUSED_PEARL);
+        GameRegistry.registerItem(BLOOD_INGOT,Names.BLOOD_INFUSED_METAL);
+        GameRegistry.registerItem(BLOOD_GEM,Names.BLOOD_INFUSED_GEM);
+        GameRegistry.registerItem(BLOOD_PEARL,Names.BLOOD_INFUSED_PEARL);
     }
 }

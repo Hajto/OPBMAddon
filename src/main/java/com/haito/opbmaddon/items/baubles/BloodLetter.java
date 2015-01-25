@@ -27,7 +27,7 @@ public class BloodLetter extends OPBMBauble {
     public static int conversionRate = 100;
     public static float activationPoint = 0.5F;
     public static int tickRate = 20;
-    public static int maxStored = 10000;
+    public static int maxStored = 20000;
 
     @Override
     public BaubleType getBaubleType(ItemStack itemStack) {

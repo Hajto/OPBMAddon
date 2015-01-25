@@ -1,18 +1,14 @@
 package com.haito.opbmaddon.client.renderer.tileEntity;
 
-import com.haito.opbmaddon.client.renderer.models.DebugModel;
 import com.haito.opbmaddon.init.ModItems;
 import com.haito.opbmaddon.refference.Models;
 import com.haito.opbmaddon.refference.Textures;
-import com.haito.opbmaddon.utility.LogHelper;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -74,7 +70,7 @@ public class testRenderTile extends TileEntitySpecialRenderer {
         float rotationAngle = (float) (720.0 * (System.currentTimeMillis() & 0x3FFFL) / 0x3FFFL);
         EntityItem ghostEntityItem = new EntityItem(te.getWorldObj());
         ghostEntityItem.hoverStart = 0.0F;
-        ghostEntityItem.setEntityItemStack(new ItemStack(ModItems.bloodDrinker));
+        ghostEntityItem.setEntityItemStack(new ItemStack(ModItems.BLOOD_DRINKER));
         float displacement = 0.2F;
 
         if (ghostEntityItem.getEntityItem().getItem() instanceof ItemBlock)

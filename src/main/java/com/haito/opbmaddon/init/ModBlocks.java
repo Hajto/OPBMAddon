@@ -13,11 +13,11 @@ import net.minecraft.block.Block;
 public class ModBlocks {
 
     //Ordinary Blocks
-    public static final OPBMBlockContainer potionStation = new BlockPotionStation();
+    public static final OPBMBlockContainer POTION_STATION = new BlockPotionStation();
     public static final Block debug = new debugBlock();
 
     public static void init(){
-        GameRegistry.registerBlock(potionStation, Names.Blocks.POTION_STATION);
+        GameRegistry.registerBlock(POTION_STATION, Names.Blocks.POTION_STATION);
         GameRegistry.registerBlock(debug, "debugBlock");
     }
 }
