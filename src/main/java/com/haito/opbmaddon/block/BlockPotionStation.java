@@ -19,6 +19,7 @@ public class BlockPotionStation extends OPBMBlockContainer {
     public BlockPotionStation(){
         super();
         this.setBlockName(Names.Blocks.POTION_STATION);
+        this.setBlockBounds(0,0,0,1,1,1);
     }
 
 
@@ -63,5 +64,19 @@ public class BlockPotionStation extends OPBMBlockContainer {
             TEPotionStation tePotionStation = (TEPotionStation) world.getTileEntity(x, y, z);
             tePotionStation.owner = ((EntityPlayer) entityLivingBase).getDisplayName();
         }
+    }
+
+    @Override
+    public int getRenderType() {
+        return -1;
+    }
+
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
+    }
+
+    public boolean renderAsNormalBlock() {
+        return false;
     }
 }

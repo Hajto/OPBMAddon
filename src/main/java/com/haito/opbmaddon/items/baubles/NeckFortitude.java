@@ -14,8 +14,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import sun.rmi.runtime.Log;
-
 import java.util.List;
 
 public class NeckFortitude extends OPBMBauble {

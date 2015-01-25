@@ -38,6 +38,7 @@ public class ItemBloodDrinker extends OPBMWeapon {
         return itemStack;
     }
 
+    //TODO: Podzielić na submetody
     @Override
     public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker) {
         if (attacker instanceof EntityPlayer && !((EntityPlayer) attacker).capabilities.isCreativeMode) {
