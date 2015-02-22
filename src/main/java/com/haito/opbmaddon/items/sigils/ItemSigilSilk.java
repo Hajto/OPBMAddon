@@ -58,59 +58,72 @@ public class ItemSigilSilk extends OPBMEnergyItem {
         if (NBTHelper.getBoolean(itemStack, "isBlockMode")) {
             //If stack contains BLock nbt, below is placing machanic
             if (NBTHelper.getBoolean(itemStack, "contBlock")) {
-                ItemStack holder = ItemStack.loadItemStackFromNBT(NBTHelper.getTagCompound(itemStack, "blockNBT"));
-                Block tempo = Block.getBlockFromItem(holder.getItem());
-                NBTHelper.removeTag(itemStack, "blockNBT");
-
-                int[] correctCoords = BlockInteractionHelper.modifyOutChordsBySide(x,y,z,side);
-
-                world.setBlock(correctCoords[0], correctCoords[1] , correctCoords[2], tempo);
-                if (NBTHelper.getBoolean(itemStack, "contTile")) {
-                    TileEntity tileEntity = TileEntity.createAndLoadEntity(NBTHelper.getTagCompound(itemStack, "tileNBT"));
-                    world.setTileEntity(x, y , z, tileEntity);
-                    NBTHelper.removeTag(itemStack, "tileNBT");
-                }
-                NBTHelper.setBoolean(itemStack, "contBlock", false);
-                NBTHelper.setBoolean(itemStack, "contTile", false);
+                placeBlock(itemStack,world,x,y,z,side);
             } else if ((target != Blocks.bedrock || Configs.Items.canBedrock) && !blackList.contains(target)) {
-                NBTTagCompound blockNBT = new NBTTagCompound();
-                ItemStack holder = new ItemStack(target);
-                holder.writeToNBT(blockNBT);
-                NBTHelper.setTagCompound(itemStack, "blockNBT", blockNBT);
-
-                if (target.hasTileEntity(0)) {
-                    blockNBT = new NBTTagCompound();
-                    world.getTileEntity(x, y, z).writeToNBT(blockNBT);
-                    NBTHelper.setTagCompound(itemStack, "tileNBT", blockNBT);
-                    NBTHelper.setBoolean(itemStack, "contTile", true);
-                }
-                NBTHelper.setString(itemStack, "blockCons", target.getUnlocalizedName());
-                NBTHelper.setString(itemStack, "blockName", target.getLocalizedName());
-                NBTHelper.setBoolean(itemStack, "contBlock", true);
-                world.removeTileEntity(x, y, z);
-                world.setBlockToAir(x, y, z);
+                pickUpBlock(itemStack,target,world,x,y,z);
             }
         } else if (NBTHelper.getBoolean(itemStack, "contMob")) {
             LogHelper.info("Second shit");
-            NBTTagCompound mobNBT = new NBTTagCompound();
-            mobNBT = NBTHelper.getTagCompound(itemStack, "mobNBT");
-
-            NBTTagList temporary = new NBTTagList();
-            int[] correctCoords = BlockInteractionHelper.modifyOutChordsBySide(x,y,z,side);
-            temporary.appendTag(new NBTTagDouble(correctCoords[0]));
-            temporary.appendTag(new NBTTagDouble(correctCoords[1]));
-            temporary.appendTag(new NBTTagDouble(correctCoords[2]));
-
-            mobNBT.setTag("Pos",temporary);
-            Entity mob = EntityList.createEntityFromNBT(mobNBT,world);
-            world.spawnEntityInWorld(mob);
-            NBTHelper.setBoolean(itemStack, "contMob", false);
-            NBTHelper.removeTag(itemStack,"mobNBT");
+            placeMob(itemStack,world,x,y,z,side);
         }
         entityPlayer.swingItem();
         return true;
     }
 
+    public void placeMob(ItemStack itemStack, World world, int x,int y,int z,int side){
+        NBTTagCompound mobNBT = new NBTTagCompound();
+        mobNBT = NBTHelper.getTagCompound(itemStack, "mobNBT");
+
+        NBTTagList temporary = new NBTTagList();
+        int[] correctCoords = BlockInteractionHelper.modifyOutChordsBySide(x,y,z,side);
+        temporary.appendTag(new NBTTagDouble(correctCoords[0]));
+        temporary.appendTag(new NBTTagDouble(correctCoords[1]));
+        temporary.appendTag(new NBTTagDouble(correctCoords[2]));
+
+        mobNBT.setTag("Pos",temporary);
+        Entity mob = EntityList.createEntityFromNBT(mobNBT,world);
+        world.spawnEntityInWorld(mob);
+        NBTHelper.setBoolean(itemStack, "contMob", false);
+        NBTHelper.removeTag(itemStack,"mobNBT");
+    }
+
+    public void pickUpBlock(ItemStack itemStack,Block target, World world, int x, int y , int z){
+        NBTTagCompound blockNBT = new NBTTagCompound();
+        ItemStack holder = new ItemStack(target);
+        holder.writeToNBT(blockNBT);
+        NBTHelper.setTagCompound(itemStack, "blockNBT", blockNBT);
+
+        if (target.hasTileEntity(0)) {
+            blockNBT = new NBTTagCompound();
+            world.getTileEntity(x, y, z).writeToNBT(blockNBT);
+            NBTHelper.setTagCompound(itemStack, "tileNBT", blockNBT);
+            NBTHelper.setBoolean(itemStack, "contTile", true);
+        }
+        NBTHelper.setString(itemStack, "blockCons", target.getUnlocalizedName());
+        NBTHelper.setString(itemStack, "blockName", target.getLocalizedName());
+        NBTHelper.setBoolean(itemStack, "contBlock", true);
+        world.removeTileEntity(x, y, z);
+        world.setBlockToAir(x, y, z);
+    }
+
+    public void placeBlock(ItemStack itemStack, World world, int x,int y, int z, int side){
+        ItemStack holder = ItemStack.loadItemStackFromNBT(NBTHelper.getTagCompound(itemStack, "blockNBT"));
+        Block tempo = Block.getBlockFromItem(holder.getItem());
+        NBTHelper.removeTag(itemStack, "blockNBT");
+
+        int[] correctCoords = BlockInteractionHelper.modifyOutChordsBySide(x,y,z,side);
+
+        world.setBlock(correctCoords[0], correctCoords[1] , correctCoords[2], tempo);
+        if (NBTHelper.getBoolean(itemStack, "contTile")) {
+            TileEntity tileEntity = TileEntity.createAndLoadEntity(NBTHelper.getTagCompound(itemStack, "tileNBT"));
+            world.setTileEntity(x, y , z, tileEntity);
+            NBTHelper.removeTag(itemStack, "tileNBT");
+        }
+        NBTHelper.setBoolean(itemStack, "contBlock", false);
+        NBTHelper.setBoolean(itemStack, "contTile", false);
+    }
+
+    //AKA MobPickUp
     @Override
     public boolean itemInteractionForEntity(ItemStack itemStack, EntityPlayer entityPlayer, EntityLivingBase target) {
         LogHelper.info("Interaction");

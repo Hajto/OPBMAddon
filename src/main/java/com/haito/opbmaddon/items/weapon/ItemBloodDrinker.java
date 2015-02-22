@@ -43,68 +43,18 @@ public class ItemBloodDrinker extends OPBMWeapon {
     public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker) {
         if (attacker instanceof EntityPlayer && !((EntityPlayer) attacker).capabilities.isCreativeMode) {
             World worldRef = ((EntityPlayer) attacker).worldObj;
-            int weaponLevel = NBTHelper.getInt(itemStack, "weaponLevel");
-            EntityPlayer player = (EntityPlayer) attacker;
-            if (weaponLevel > 0) {
-                float calculatedHealed = target.prevHealth - target.getHealth();
-                if (calculatedHealed > 0) {
-                    calculatedHealed = (calculatedHealed / 100) * Configs.Items.bloodDrinkerPercentageHealed;
-                    //Weapon level 3 - no penalty when attacking players
-                    if (target instanceof EntityPlayer && weaponLevel < 3)
-                        calculatedHealed *= Configs.Items.bloodDrinkerOnPlayerAttackedHealed;
-                    //Weapon level 4 - Cursed Blade
-                    //TODO: Apply some nasty bad potions effects
-                    if(weaponLevel >= 4){
-                        target.addPotionEffect(new PotionEffect(Potion.weakness.id,120 ,2));
-                    }
-                    //Weapon level 5 - health gainud doubled, be realistic no body will kill 10 000 entitites during one playthrough
-                    if (weaponLevel == 5) {
-                        calculatedHealed *= 2;
-                    }
-                    if (attacker.getHealth() + calculatedHealed > attacker.getMaxHealth())
-                        attacker.setHealth(attacker.getMaxHealth());
-                    else
-                        attacker.setHealth(attacker.getHealth() + calculatedHealed);
-
-                    SoulNetworkHandler.checkAndSetItemOwner(itemStack, (EntityPlayer) attacker);
-                    SoulNetworkMagicHelper.appendToSoulNetwork(itemStack.stackTagCompound.getString("ownerName"), (int) (calculatedHealed * 100));
+            if(!worldRef.isRemote) {
+                int weaponLevel = NBTHelper.getInt(itemStack, "weaponLevel");
+                EntityPlayer player = (EntityPlayer) attacker;
+                if (weaponLevel > 0) {
+                    onDamage(itemStack, target, player);
+                }
+                if (target.getHealth() == 0 || target.isDead) {
+                    weaponLevelUp(itemStack, player);
+                    onKill(itemStack, player);
                 }
             }
-            if (target.getHealth() == 0 || target.isDead) {
-                LogHelper.info("Kill");
-
-                //Updating bodyCount, i think it's prettier than NBTHelper.setInteger(itemStack,"bodyCount",NBTHelper.getInt(itemStack, "bodyCount")+1)
-                //Especially when i need that number few lines lower
-                int placeholder = NBTHelper.getInt(itemStack, "bodyCount");
-                NBTHelper.setInteger(itemStack, "bodyCount", placeholder + 1);
-
-                //Level up!
-                if (placeholder + 1 >= Configs.Items.bloodDrinkerLevels[weaponLevel]) {
-                    LogHelper.info(placeholder + 1 + " is greater than " + Configs.Items.bloodDrinkerLevels[weaponLevel]);
-                    NBTHelper.setInteger(itemStack, "weaponLevel", weaponLevel + 1);
-                    player.addChatComponentMessage(new ChatComponentText("Your weapon is getting stronger! It's now level " + (placeholder + 1)));
-                }
-                FoodStats foodStats = player.getFoodStats();
-                //Weapon level 2 - Hunger restoration 1
-                if (weaponLevel >= 2 && weaponLevel < 4) {
-                    foodStats.setFoodLevel(foodStats.getFoodLevel() + 3);
-                    foodStats.setFoodSaturationLevel(foodStats.getSaturationLevel() + 2);
-                }
-                //Weapon level 4 - Hunger restoration 2
-                if (weaponLevel >= 4) {
-                    foodStats.setFoodLevel(foodStats.getFoodLevel() + 6);
-                    foodStats.setFoodSaturationLevel(foodStats.getSaturationLevel() + 4);
-                }
-            }
-            LogHelper.info("Initializing stuff and things");
-            double posX = target.posX;
-            double posY = target.posY + 1;
-            double posZ = target.posZ;
-            target.posY += 1;
-            LogHelper.info("Explosion expected any time on " + posX + " " + posY + " " + posZ);
-            worldRef.playSoundEffect((float) posX + 0.5F, (float) posY + 0.5F, (float) posZ + 0.5F, "random.fizz", 0.5F, 2.6F + (worldRef.rand.nextFloat() - worldRef.rand.nextFloat()) * 0.8F);
-            CommonParticlesHelper.showParticleAt(Particles.WITCH_MAGIC, target, 0F, 0F, 0F);
-
+            spawnDeathParticles(worldRef,target);
         }
         try {
             if (((EntityPlayer) attacker).worldObj.isRemote) {
@@ -114,6 +64,71 @@ public class ItemBloodDrinker extends OPBMWeapon {
             e.printStackTrace();
         }
         return true;
+    }
+
+    public void onDamage(ItemStack itemStack, EntityLivingBase target, EntityPlayer attacker){
+        int weaponLevel = NBTHelper.getInt(itemStack, "weaponLevel");
+        float calculatedHealed = target.prevHealth - target.getHealth();
+        if (calculatedHealed > 0) {
+            calculatedHealed = (calculatedHealed / 100) * Configs.Items.bloodDrinkerPercentageHealed;
+            //Weapon level 3 - no penalty when attacking players
+            if (target instanceof EntityPlayer && weaponLevel < 3)
+                calculatedHealed *= Configs.Items.bloodDrinkerOnPlayerAttackedHealed;
+            //Weapon level 4 - Cursed Blade
+            //TODO: Apply some nasty bad potions effects
+            if(weaponLevel >= 4){
+                target.addPotionEffect(new PotionEffect(Potion.weakness.id,120 ,2));
+            }
+            //Weapon level 5 - health gainud doubled, be realistic no body will kill 10 000 entitites during one playthrough
+            if (weaponLevel == 5) {
+                calculatedHealed *= 2;
+            }
+            if (attacker.getHealth() + calculatedHealed > attacker.getMaxHealth())
+                attacker.setHealth(attacker.getMaxHealth());
+            else
+                attacker.setHealth(attacker.getHealth() + calculatedHealed);
+
+            SoulNetworkHandler.checkAndSetItemOwner(itemStack, attacker);
+            SoulNetworkMagicHelper.appendToSoulNetwork(itemStack.stackTagCompound.getString("ownerName"), (int) (calculatedHealed * 100));
+        }
+    }
+
+    public void weaponLevelUp(ItemStack itemStack, EntityPlayer player){
+        int weaponLevel = NBTHelper.getInt(itemStack, "weaponLevel");
+        int placeholder = NBTHelper.getInt(itemStack, "bodyCount");
+        NBTHelper.setInteger(itemStack, "bodyCount", placeholder + 1);
+
+        //Level up!
+        if (placeholder + 1 >= Configs.Items.bloodDrinkerLevels[weaponLevel]) {
+            LogHelper.info(placeholder + 1 + " is greater than " + Configs.Items.bloodDrinkerLevels[weaponLevel]);
+            NBTHelper.setInteger(itemStack, "weaponLevel", weaponLevel + 1);
+            player.addChatComponentMessage(new ChatComponentText("Your weapon is getting stronger! It's now level " + (placeholder + 1)));
+        }
+    }
+
+    public void onKill(ItemStack itemStack, EntityPlayer player){
+        int weaponLevel = NBTHelper.getInt(itemStack, "weaponLevel");
+        FoodStats foodStats = player.getFoodStats();
+        //Weapon level 2 - Hunger restoration 1
+        if (weaponLevel >= 2 && weaponLevel < 4) {
+            foodStats.setFoodLevel(foodStats.getFoodLevel() + 3);
+            foodStats.setFoodSaturationLevel(foodStats.getSaturationLevel() + 2);
+        }
+        //Weapon level 4 - Hunger restoration 2
+        if (weaponLevel >= 4) {
+            foodStats.setFoodLevel(foodStats.getFoodLevel() + 6);
+            foodStats.setFoodSaturationLevel(foodStats.getSaturationLevel() + 4);
+        }
+    }
+
+    public void spawnDeathParticles(World worldRef,EntityLivingBase target){
+        double posX = target.posX;
+        double posY = target.posY + 1;
+        double posZ = target.posZ;
+        target.posY += 1;
+        LogHelper.info("Explosion expected any time on " + posX + " " + posY + " " + posZ);
+        worldRef.playSoundEffect((float) posX + 0.5F, (float) posY + 0.5F, (float) posZ + 0.5F, "random.fizz", 0.5F, 2.6F + (worldRef.rand.nextFloat() - worldRef.rand.nextFloat()) * 0.8F);
+        CommonParticlesHelper.showParticleAt(Particles.WITCH_MAGIC, target, 0F, 0F, 0F);
     }
 
     @Override

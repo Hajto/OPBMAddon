@@ -26,8 +26,8 @@ public class TEPotionStation extends TileEntity{
             this.potion.writeToNBT(tagCompound);
             nbtTagCompound.setTag("inventory", tagCompound);
         }
-        nbtTagCompound.setString("owner",this.owner);
-        LogHelper.info("Data writen");
+        nbtTagCompound.setString("owner",this.owner.length() > 0 ? this.owner : "debug");
+        LogHelper.info("Data writen begin owner " + this.owner + " owner end");
     }
 
     private void readSyncableDataFromNBT(NBTTagCompound nbtTagCompound){

@@ -8,9 +8,6 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-/**
- * Created by Hajto-Lenovo on 2015-01-05.
- */
 public class OPBMEnergyItem extends OPBMItem implements IBindable{
 
     private int energyUsed = 0;

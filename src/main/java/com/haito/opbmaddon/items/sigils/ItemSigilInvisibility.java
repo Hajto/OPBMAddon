@@ -32,6 +32,7 @@ public class ItemSigilInvisibility extends OPBMEnergyItem {
                 entityPlayer.setInvisible(true);
                 entityPlayer.capabilities.disableDamage = true;
                 NBTHelper.setBoolean(itemStack, "isActive", true);
+                EnergyItems.syphonBatteries(itemStack, entityPlayer, this.getEnergyUsed()*9);
                 NBTHelper.setInteger(itemStack,"worldTimeDelay",(int)(world.getWorldTime() - 1L) % 200);
             } else {
                 entityPlayer.setInvisible(false);

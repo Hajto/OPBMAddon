@@ -35,7 +35,7 @@ public class RingAwesomnes extends OPBMBauble {
 
     @Override
     public void onEquipped(ItemStack itemStack, EntityLivingBase entityLivingBase) {
-        LogHelper.info("");
+
     }
 
     @Override
