@@ -32,7 +32,7 @@ public class ItemSigilHomeSoil extends OPBMEnergyItem {
         EnergyItems.checkAndSetItemOwner(itemStack, entityPlayer);
         if (entityPlayer.isSneaking() && !world.isRemote) {
             if (NBTHelper.getBoolean(itemStack, "isActive")) {
-                Bukacz(entityPlayer);
+                teleportPlayerToBed(entityPlayer);
             } else {
                 Double posX = NBTHelper.getDouble(itemStack, "posX");
                 Double posY = NBTHelper.getDouble(itemStack, "posY");
@@ -62,12 +62,11 @@ public class ItemSigilHomeSoil extends OPBMEnergyItem {
         return itemStack;
     }
 
-    public void Bukacz(EntityPlayer player) {
+    public void teleportPlayerToBed(EntityPlayer player) {
         ChunkCoordinates coordinates = player.getBedLocation(player.worldObj.provider.dimensionId);
         if (coordinates == null)
             coordinates = player.worldObj.getSpawnPoint();
         player.setPositionAndUpdate(coordinates.posX, coordinates.posY + 1, coordinates.posZ);
-        //player.worldObj.isRemote
     }
 
     @Override

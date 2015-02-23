@@ -30,6 +30,7 @@ import java.util.List;
 
 public class ItemSigilSilk extends OPBMEnergyItem {
     public static List<Block> blackList = new ArrayList<Block>();
+
     public ItemSigilSilk() {
         super();
         this.setMaxStackSize(1);
@@ -58,65 +59,71 @@ public class ItemSigilSilk extends OPBMEnergyItem {
         if (NBTHelper.getBoolean(itemStack, "isBlockMode")) {
             //If stack contains BLock nbt, below is placing machanic
             if (NBTHelper.getBoolean(itemStack, "contBlock")) {
-                placeBlock(itemStack,world,x,y,z,side);
+                placeBlock(itemStack, world, x, y, z, side);
             } else if ((target != Blocks.bedrock || Configs.Items.canBedrock) && !blackList.contains(target)) {
-                pickUpBlock(itemStack,target,world,x,y,z);
+                pickUpBlock(itemStack, target, world, x, y, z);
             }
         } else if (NBTHelper.getBoolean(itemStack, "contMob")) {
             LogHelper.info("Second shit");
-            placeMob(itemStack,world,x,y,z,side);
+            placeMob(itemStack, world, x, y, z, side);
         }
         entityPlayer.swingItem();
         return true;
     }
 
-    public void placeMob(ItemStack itemStack, World world, int x,int y,int z,int side){
+    public void placeMob(ItemStack itemStack, World world, int x, int y, int z, int side) {
         NBTTagCompound mobNBT = new NBTTagCompound();
         mobNBT = NBTHelper.getTagCompound(itemStack, "mobNBT");
 
         NBTTagList temporary = new NBTTagList();
-        int[] correctCoords = BlockInteractionHelper.modifyOutChordsBySide(x,y,z,side);
+        int[] correctCoords = BlockInteractionHelper.modifyOutChordsBySide(x, y, z, side);
         temporary.appendTag(new NBTTagDouble(correctCoords[0]));
         temporary.appendTag(new NBTTagDouble(correctCoords[1]));
         temporary.appendTag(new NBTTagDouble(correctCoords[2]));
 
-        mobNBT.setTag("Pos",temporary);
-        Entity mob = EntityList.createEntityFromNBT(mobNBT,world);
+        mobNBT.setTag("Pos", temporary);
+        Entity mob = EntityList.createEntityFromNBT(mobNBT, world);
         world.spawnEntityInWorld(mob);
         NBTHelper.setBoolean(itemStack, "contMob", false);
-        NBTHelper.removeTag(itemStack,"mobNBT");
+        NBTHelper.removeTag(itemStack, "mobNBT");
     }
 
-    public void pickUpBlock(ItemStack itemStack,Block target, World world, int x, int y , int z){
-        NBTTagCompound blockNBT = new NBTTagCompound();
+    public void pickUpBlock(ItemStack itemStack, Block target, World world, int x, int y, int z) {
+        NBTTagCompound blockNBT;
+
+        if (target.hasTileEntity(0)) {
+            LogHelper.info("Writing to TileData");
+            blockNBT = new NBTTagCompound();
+            TileEntity tileEntity = world.getTileEntity(x, y, z);
+            tileEntity.writeToNBT(blockNBT);
+            NBTHelper.setTagCompound(itemStack, "tileNBT", blockNBT);
+            NBTHelper.setBoolean(itemStack, "contTile", true);
+            world.removeTileEntity(x, y, z);
+        }
+
+        LogHelper.info("Writing to BlockData");
+        blockNBT = new NBTTagCompound();
         ItemStack holder = new ItemStack(target);
         holder.writeToNBT(blockNBT);
         NBTHelper.setTagCompound(itemStack, "blockNBT", blockNBT);
-
-        if (target.hasTileEntity(0)) {
-            blockNBT = new NBTTagCompound();
-            world.getTileEntity(x, y, z).writeToNBT(blockNBT);
-            NBTHelper.setTagCompound(itemStack, "tileNBT", blockNBT);
-            NBTHelper.setBoolean(itemStack, "contTile", true);
-        }
         NBTHelper.setString(itemStack, "blockCons", target.getUnlocalizedName());
         NBTHelper.setString(itemStack, "blockName", target.getLocalizedName());
         NBTHelper.setBoolean(itemStack, "contBlock", true);
-        world.removeTileEntity(x, y, z);
         world.setBlockToAir(x, y, z);
+        LogHelper.info("x: "+x+ " z: "+z);
     }
 
-    public void placeBlock(ItemStack itemStack, World world, int x,int y, int z, int side){
+    public void placeBlock(ItemStack itemStack, World world, int x, int y, int z, int side) {
         ItemStack holder = ItemStack.loadItemStackFromNBT(NBTHelper.getTagCompound(itemStack, "blockNBT"));
         Block tempo = Block.getBlockFromItem(holder.getItem());
         NBTHelper.removeTag(itemStack, "blockNBT");
 
-        int[] correctCoords = BlockInteractionHelper.modifyOutChordsBySide(x,y,z,side);
+        int[] correctCoords = BlockInteractionHelper.modifyOutChordsBySide(x, y, z, side);
 
-        world.setBlock(correctCoords[0], correctCoords[1] , correctCoords[2], tempo);
+        world.setBlock(correctCoords[0], correctCoords[1], correctCoords[2], tempo);
         if (NBTHelper.getBoolean(itemStack, "contTile")) {
             TileEntity tileEntity = TileEntity.createAndLoadEntity(NBTHelper.getTagCompound(itemStack, "tileNBT"));
-            world.setTileEntity(x, y , z, tileEntity);
+            world.setTileEntity(correctCoords[0], correctCoords[1], correctCoords[2], tileEntity);
             NBTHelper.removeTag(itemStack, "tileNBT");
         }
         NBTHelper.setBoolean(itemStack, "contBlock", false);
@@ -134,11 +141,11 @@ public class ItemSigilSilk extends OPBMEnergyItem {
             target.writeEntityToNBT(mob);
             ((EntityLiving) target).isDead = true;
             LogHelper.info(mob);
-            mob.setString("id",(String)EntityList.classToStringMapping.get(target.getClass()));
+            mob.setString("id", (String) EntityList.classToStringMapping.get(target.getClass()));
             NBTHelper.setTagCompound(itemStack, "mobNBT", mob);
             //NBTHelper.setString(itemStack,"mobName",targ);
             LogHelper.info(EntityList.getEntityString(target));
-            NBTHelper.setString(itemStack,"mobName",EntityList.getEntityString(target));
+            NBTHelper.setString(itemStack, "mobName", EntityList.getEntityString(target));
             NBTHelper.setBoolean(itemStack, "contMob", true);
 
             entityPlayer.swingItem();
@@ -148,7 +155,7 @@ public class ItemSigilSilk extends OPBMEnergyItem {
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
-        if(!entityPlayer.isSneaking() && !world.isRemote)
+        if (!entityPlayer.isSneaking() && !world.isRemote)
             if (NBTHelper.getBoolean(itemStack, "isBlockMode")) {
                 NBTHelper.setBoolean(itemStack, "isBlockMode", false);
                 entityPlayer.addChatMessage(new ChatComponentText("Sigil turned into mob picking mode"));
@@ -156,7 +163,7 @@ public class ItemSigilSilk extends OPBMEnergyItem {
                 NBTHelper.setBoolean(itemStack, "isBlockMode", true);
                 entityPlayer.addChatMessage(new ChatComponentText("Sigil turned into block picking mode"));
             }
-        world.playSoundEffect(entityPlayer.posX,entityPlayer.posY,entityPlayer.posZ,"mob.endermen.portal",1F,1F);
+        world.playSoundEffect(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, "mob.endermen.portal", 1F, 1F);
         return itemStack;
     }
 
@@ -166,12 +173,10 @@ public class ItemSigilSilk extends OPBMEnergyItem {
         NBTHelper.setBoolean(par1ItemStack, "contBlock", false);
         //NBTHelper.setBoolean(par1ItemStack, "reqNBT", false);
     }
-
-    @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         par3List.add("Mode: " + (NBTHelper.getBoolean(par1ItemStack, "isBlockMode") ? "block picking" : "mob picking"));
-        par3List.add("Containing: " + (NBTHelper.getBoolean(par1ItemStack, "contBlock") ? NBTHelper.getString(par1ItemStack, "blockName") : (NBTHelper.getBoolean(par1ItemStack, "contMob") ? NBTHelper.getString(par1ItemStack,"mobName") : "none")));
+        par3List.add("Containing: " + (NBTHelper.getBoolean(par1ItemStack, "contBlock") ? NBTHelper.getString(par1ItemStack, "blockName") : (NBTHelper.getBoolean(par1ItemStack, "contMob") ? NBTHelper.getString(par1ItemStack, "mobName") : "none")));
         par3List.add("Current owner: " + NBTHelper.getString(par1ItemStack, "ownerName"));
     }
 }

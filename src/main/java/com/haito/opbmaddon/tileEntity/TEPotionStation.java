@@ -26,7 +26,7 @@ public class TEPotionStation extends TileEntity{
             this.potion.writeToNBT(tagCompound);
             nbtTagCompound.setTag("inventory", tagCompound);
         }
-        nbtTagCompound.setString("owner",this.owner.length() > 0 ? this.owner : "debug");
+        nbtTagCompound.setString("owner", this.owner != null &&this.owner.length() > 0 ? this.owner : "None");
         LogHelper.info("Data writen begin owner " + this.owner + " owner end");
     }
 
