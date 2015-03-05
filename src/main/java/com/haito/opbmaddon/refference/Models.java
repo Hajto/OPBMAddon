@@ -9,4 +9,5 @@ public class Models {
 
     public static final ResourceLocation ALUDEL = ResourceLocationHelper.getResLocation(MODEL_LOCATION + "Test.obj");
     public static final ResourceLocation POTION_STATION = ResourceLocationHelper.getResLocation(MODEL_LOCATION + "PotionStation.obj");
+    public static final ResourceLocation PYLON = ResourceLocationHelper.getResLocation(MODEL_LOCATION + "Pylon.obj");
 }

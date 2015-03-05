@@ -44,12 +44,12 @@ public class PotionStationRenderer extends TileEntitySpecialRenderer {
         //This is setting the initial location.
         GL11.glTranslatef((float) posX + 0.5F, (float) posY + 0.5F, (float) posZ + 0.5F);
         //Minecraft.getMinecraft().renderEngine.bindTexture(textures);
-        //This rotation part is very important! Without it, your model will render upside-down! And for some reason you DO need PushMatrix again!
+        //This rotation part is very important! Without it, your bottomBaseModel will render upside-down! And for some reason you DO need PushMatrix again!
         GL11.glPushMatrix();
         GL11.glRotatef(0F, 0F, 45F, 1.0F);
         GL11.glScaled(0.17F,0.17F,0.17F);
         //A reference to your Model file. Again, very important.
-        //this.model.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+        //this.bottomBaseModel.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
         //Tell it to stop rendering for both the PushMatrix's
         bindTexture(textures);
         model.renderAll();

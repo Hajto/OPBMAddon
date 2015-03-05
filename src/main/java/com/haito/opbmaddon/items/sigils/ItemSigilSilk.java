@@ -130,11 +130,13 @@ public class ItemSigilSilk extends OPBMEnergyItem {
         NBTHelper.setBoolean(itemStack, "contTile", false);
     }
 
+
+
     //AKA MobPickUp
     @Override
     public boolean itemInteractionForEntity(ItemStack itemStack, EntityPlayer entityPlayer, EntityLivingBase target) {
         LogHelper.info("Interaction");
-        if (!NBTHelper.getBoolean(itemStack, "isBlockMode") && !entityPlayer.worldObj.isRemote && !itemStack.stackTagCompound.getBoolean("contMob") && target instanceof EntityLiving && !(target instanceof EntityPlayer) && !entityPlayer.worldObj.isRemote) {
+        if (!NBTHelper.getBoolean(itemStack, "isBlockMode") && !entityPlayer.worldObj.isRemote && !itemStack.stackTagCompound.getBoolean("contMob") && target instanceof EntityLiving && !entityPlayer.worldObj.isRemote) {
             itemStack = entityPlayer.getHeldItem();
             LogHelper.info("Containing mob : " + NBTHelper.getBoolean(itemStack, "contMob"));
             NBTTagCompound mob = new NBTTagCompound();

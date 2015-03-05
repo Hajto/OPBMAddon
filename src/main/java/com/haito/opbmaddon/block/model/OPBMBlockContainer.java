@@ -9,9 +9,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-/**
- * Created by Haito on 2015-01-18.
- */
 public class OPBMBlockContainer extends BlockContainer {
     protected OPBMBlockContainer(Material p_i45386_1_) {
         super(p_i45386_1_);

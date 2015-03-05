@@ -12,5 +12,6 @@ public class Textures {
         public static final ResourceLocation DEBUG_TEXTURE = ResourceLocationHelper.getResLocation(SUBFOLDER +"DEBUG_TEXTURE.png");
         public static final ResourceLocation PIRAMID = ResourceLocationHelper.getResLocation(SUBFOLDER + "Pyramid.png");
         public static final ResourceLocation POTION_STATION = ResourceLocationHelper.getResLocation(SUBFOLDER + "PotionStation.png");
+        public static final ResourceLocation PYLON_BASIC = ResourceLocationHelper.getResLocation(SUBFOLDER + "Pylon.png");
     }
 }

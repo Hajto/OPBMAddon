@@ -41,8 +41,7 @@ public class BlockPotionStation extends OPBMBlockContainer {
         }
     }
     @Override
-    public boolean onBlockActivated(World world, int blockX, int blockY, int blockZ, EntityPlayer entityPlayer, int side, float idk1, float idk2, float idk3)
-    {
+    public boolean onBlockActivated(World world, int blockX, int blockY, int blockZ, EntityPlayer entityPlayer, int side, float idk1, float idk2, float idk3){
         LogHelper.info("I assume that x:" + blockX + " y:" + blockY + " z:"+blockZ + " clicked on side:" + side);
         LogHelper.info(idk1 + " " + idk2 + " " + idk3);
         ItemStack itemStack = entityPlayer.getHeldItem();

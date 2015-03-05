@@ -8,7 +8,7 @@ import com.haito.opbmaddon.init.Recipes;
 import com.haito.opbmaddon.network.NetworkHandler;
 import com.haito.opbmaddon.proxy.IProxy;
 import com.haito.opbmaddon.refference.MainRef;
-import com.haito.opbmaddon.tileEntity.debugTileEntity;
+import com.haito.opbmaddon.tileEntity.TEUnholyPylon;
 import com.haito.opbmaddon.utility.LogHelper;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -46,7 +46,7 @@ public class Main {
         Recipes.init();
         ModTileEntity.init();
         proxy.initRenderStuff();
-        GameRegistry.registerTileEntity(debugTileEntity.class,"sampleTile");
+        GameRegistry.registerTileEntity(TEUnholyPylon.class,"sampleTile");
     }
 
     @Mod.EventHandler
