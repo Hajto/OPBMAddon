@@ -19,15 +19,15 @@ import java.util.List;
 //Code by WayOfTime, I just made it bauble
 
 public class BloodLetter extends OPBMBauble {
-    public BloodLetter(){
-        super();
-        this.setUnlocalizedName(Names.Baubles.NECK_PACK);
-    }
-
     public static int conversionRate = 100;
     public static float activationPoint = 0.5F;
     public static int tickRate = 20;
     public static int maxStored = 20000;
+
+    public BloodLetter() {
+        super();
+        this.setUnlocalizedName(Names.Baubles.NECK_PACK);
+    }
 
     @Override
     public BaubleType getBaubleType(ItemStack itemStack) {
@@ -36,7 +36,7 @@ public class BloodLetter extends OPBMBauble {
 
     @Override
     public void onWornTick(ItemStack itemStack, EntityLivingBase entityLivingBase) {
-        if(entityLivingBase instanceof EntityPlayer) {
+        if (entityLivingBase instanceof EntityPlayer) {
             EntityPlayer entityPlayer = (EntityPlayer) entityLivingBase;
             World world = entityPlayer.worldObj;
             if (!world.isRemote && !entityPlayer.capabilities.isCreativeMode) {
@@ -52,26 +52,28 @@ public class BloodLetter extends OPBMBauble {
     }
 
     @Override
-    public void specialStuff(ItemStack itemStack,World world, EntityPlayer entityPlayer){
-        LogHelper.info("Stuff happening" + world.isRemote);
-        MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(world, entityPlayer, false);
-        if(entityPlayer.isSneaking()  && !world.isRemote && movingobjectposition != null && movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-            int x = movingobjectposition.blockX;
-            int y = movingobjectposition.blockY;
-            int z = movingobjectposition.blockZ;
-            TileEntity tile = world.getTileEntity(x, y, z);
-            LogHelper.info("Sneaking server...");
+    public void notSneakRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
+        if (!world.isRemote) {
 
-            if (tile instanceof TEAltar && !((TEAltar) tile).isActive() ) {
-                LogHelper.info("Insance of altar found");
-                TEAltar altar = (TEAltar) tile;
-                int amount = this.getStoredLP(itemStack);
-                LogHelper.info("Transfer bugn "+amount);
-                if (amount > 0) {
-                    int filledAmount = altar.fillMainTank(amount);
-                    amount -= filledAmount;
-                    this.setStoredLP(itemStack, amount);
-                    world.markBlockForUpdate(x, y, z);
+            MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(world, entityPlayer, false);
+            if (entityPlayer.isSneaking() && movingobjectposition != null && movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+                int x = movingobjectposition.blockX;
+                int y = movingobjectposition.blockY;
+                int z = movingobjectposition.blockZ;
+                TileEntity tile = world.getTileEntity(x, y, z);
+                LogHelper.info("Sneaking server...");
+
+                if (tile instanceof TEAltar && !((TEAltar) tile).isActive()) {
+                    LogHelper.info("Insance of altar found");
+                    TEAltar altar = (TEAltar) tile;
+                    int amount = this.getStoredLP(itemStack);
+                    LogHelper.info("Transfer bugn " + amount);
+                    if (amount > 0) {
+                        int filledAmount = altar.fillMainTank(amount);
+                        amount -= filledAmount;
+                        this.setStoredLP(itemStack, amount);
+                        world.markBlockForUpdate(x, y, z);
+                    }
                 }
             }
         }
@@ -86,10 +88,11 @@ public class BloodLetter extends OPBMBauble {
     public void onUnequipped(ItemStack itemStack, EntityLivingBase entityLivingBase) {
 
     }
+
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         par3List.add("This pack really chaffes...");
-        if(par1ItemStack.stackTagCompound != null) {
+        if (par1ItemStack.stackTagCompound != null) {
             NBTTagCompound itemTag = par1ItemStack.stackTagCompound;
             par3List.add("Stored LP: " + this.getStoredLP(par1ItemStack));
         }

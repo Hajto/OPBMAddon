@@ -4,8 +4,12 @@ import com.haito.opbmaddon.creativeTab.OPBMTab;
 import com.haito.opbmaddon.tileEntity.TEUnholyPylon;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class BlockUnholyPylon extends BlockContainer {
     //Treat it like a normal block here. The Block Bounds are a good idea - the first three are X Y and Z of the botton-left corner,
@@ -15,8 +19,6 @@ public class BlockUnholyPylon extends BlockContainer {
         this.setCreativeTab(OPBMTab.OPBMADDON_TAB);
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1F, 3.0F, 1F);
     }
-
-    //Make sure you set this as your TileEntity class relevant for the block!
 
     //You don't want the normal render type, or it wont render properly.
     @Override

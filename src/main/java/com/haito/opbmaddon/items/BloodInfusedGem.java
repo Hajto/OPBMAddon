@@ -11,9 +11,6 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-/**
- * Created by Haito on 2015-01-10.
- */
 public class BloodInfusedGem extends OPBMItem{
     public BloodInfusedGem(){
         super();

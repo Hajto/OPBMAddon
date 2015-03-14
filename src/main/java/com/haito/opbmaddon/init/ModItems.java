@@ -7,6 +7,7 @@ import com.haito.opbmaddon.items.DebugItem;
 import com.haito.opbmaddon.items.baubles.BloodLetter;
 import com.haito.opbmaddon.items.baubles.NeckFortitude;
 import com.haito.opbmaddon.items.baubles.RingAwesomnes;
+import com.haito.opbmaddon.items.baubles.RingTrueFeatherFalling;
 import com.haito.opbmaddon.items.sigils.*;
 import com.haito.opbmaddon.items.weapon.ItemBloodDrinker;
 import com.haito.opbmaddon.items.model.OPBMItem;
@@ -34,6 +35,7 @@ public class ModItems {
     public static final OPBMItem RING_AWESOMNESS =  new RingAwesomnes();
     public static final OPBMItem NECK_FORTITUDE = new NeckFortitude();
     public static final OPBMItem NECK_BLOOD_LETTER = new BloodLetter();
+    public static final OPBMItem RING_FEATHER_FALLING = new RingTrueFeatherFalling();
 
     //Crafting supplies
     public static final OPBMItem BLOOD_INGOT = new BloodInfusedIngot();
@@ -54,6 +56,7 @@ public class ModItems {
         GameRegistry.registerItem(debugTool,Names.EVERYTHING_CHECKER);
         //Baubless
         GameRegistry.registerItem(RING_AWESOMNESS,Names.Baubles.RING_AWESOMNESS);
+        GameRegistry.registerItem(RING_FEATHER_FALLING,Names.Baubles.RING_FEATHER_FALL);
         GameRegistry.registerItem(NECK_BLOOD_LETTER,Names.Baubles.NECK_PACK);
         GameRegistry.registerItem(NECK_FORTITUDE,Names.Baubles.NECK_FORTITUDE);
         //Crafting suplies

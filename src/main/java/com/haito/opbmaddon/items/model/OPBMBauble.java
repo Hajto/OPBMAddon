@@ -7,7 +7,6 @@ import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -74,12 +73,12 @@ public class OPBMBauble extends OPBMEnergyItem implements IBauble {
                 }
             }
         } else {
-            specialStuff(itemStack, world, entityPlayer);
+            notSneakRightClick(itemStack, world, entityPlayer);
         }
         return itemStack;
     }
 
-    public void specialStuff(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
+    public void notSneakRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
         //Stub
     }
 

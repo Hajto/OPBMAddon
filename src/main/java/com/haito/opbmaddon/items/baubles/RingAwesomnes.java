@@ -26,6 +26,9 @@ public class RingAwesomnes extends OPBMBauble {
     public void onWornTick(ItemStack itemStack, EntityLivingBase entityLivingBase) {
         if(entityLivingBase instanceof EntityPlayer){
             EntityPlayer entityPlayer = (EntityPlayer) entityLivingBase;
+
+            SoulNetworkHandler.checkAndSetItemOwner(itemStack, entityPlayer);
+
             World world = entityPlayer.worldObj;
             if(!world.isRemote && world.getWorldTime() % 20L == 0){
                 SoulNetworkMagicHelper.appendToSoulNetwork(entityPlayer.getDisplayName(),SoulNetworkHandler.getCurrentMaxOrb(entityPlayer.getDisplayName())*5);

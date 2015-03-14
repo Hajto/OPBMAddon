@@ -29,23 +29,20 @@ public class ItemSigilHomeSoil extends OPBMEnergyItem {
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
+        if (world.isRemote) {
+            return itemStack;
+        }
+
         EnergyItems.checkAndSetItemOwner(itemStack, entityPlayer);
         if (entityPlayer.isSneaking() && !world.isRemote) {
             if (NBTHelper.getBoolean(itemStack, "isActive")) {
                 teleportPlayerToBed(entityPlayer);
             } else {
-                Double posX = NBTHelper.getDouble(itemStack, "posX");
-                Double posY = NBTHelper.getDouble(itemStack, "posY");
-                Double posZ = NBTHelper.getDouble(itemStack, "posZ");
-                if (posX != 0 && posY != 0 && posZ != 0) {
-                    entityPlayer.setPositionAndUpdate(posX, posY, posZ);
-                } else {
-                    NBTHelper.setDouble(itemStack, "posX", entityPlayer.posX);
-                    NBTHelper.setDouble(itemStack, "posY", entityPlayer.posY);
-                    NBTHelper.setDouble(itemStack, "posZ", entityPlayer.posZ);
-                }
+                if(!canTpToWaypoint(entityPlayer, itemStack))
+                    setWaypoint(entityPlayer,itemStack);
             }
             EnergyItems.syphonBatteries(itemStack, entityPlayer, this.getEnergyUsed());
+            CommonParticlesHelper.showParticleAt(Particles.WITCH_MAGIC, entityPlayer, 0F, 0F, 0F);
         } else {
             if (NBTHelper.getBoolean(itemStack, "isActive")) {
                 LogHelper.info(false);
@@ -56,10 +53,25 @@ public class ItemSigilHomeSoil extends OPBMEnergyItem {
             }
         }
 
-        if (world.isRemote) {
-            CommonParticlesHelper.showParticleAt(Particles.WITCH_MAGIC, entityPlayer, 0F, 0F, 0F);
-        }
         return itemStack;
+    }
+
+    private void setWaypoint(EntityPlayer entityPlayer, ItemStack itemStack){
+        NBTHelper.setDouble(itemStack, "posX", entityPlayer.posX);
+        NBTHelper.setDouble(itemStack, "posY", entityPlayer.posY);
+        NBTHelper.setDouble(itemStack, "posZ", entityPlayer.posZ);
+    }
+
+    private boolean canTpToWaypoint(EntityPlayer entityPlayer, ItemStack itemStack){
+        Double posX = NBTHelper.getDouble(itemStack, "posX");
+        Double posY = NBTHelper.getDouble(itemStack, "posY");
+        Double posZ = NBTHelper.getDouble(itemStack, "posZ");
+        if (posX != 0 && posY != 0 && posZ != 0) {
+            entityPlayer.setPositionAndUpdate(posX, posY, posZ);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void teleportPlayerToBed(EntityPlayer player) {

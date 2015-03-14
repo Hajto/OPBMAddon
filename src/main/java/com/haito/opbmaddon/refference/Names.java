@@ -15,6 +15,8 @@ public class Names {
     }
     public class Baubles{
         public static final String RING_AWESOMNESS ="ringAwesomnes";
+        public static final String RING_FEATHER_FALL = "ringTrueFeatherFalling";
+
         public static final String NECK_PACK ="neckBloodLetter";
         public static final String NECK_FORTITUDE ="neckUnholyFortitude";
     }

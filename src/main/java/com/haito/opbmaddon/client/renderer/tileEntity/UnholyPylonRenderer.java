@@ -51,7 +51,7 @@ public class UnholyPylonRenderer extends TileEntitySpecialRenderer {
 
         GL11.glPushMatrix();
         GL11.glScalef(0.20F,0.20F,0.20F);
-        GL11.glTranslatef(0F,7.0F + (float) Math.sin((double) (System.currentTimeMillis() & 0x3FFFL) / 1000),0F);
+        GL11.glTranslatef(0F,7.0F + (float) Math.sin((double) System.currentTimeMillis() / 1000),0F);
         bindTexture(pylonBaseTexture);
         pylonBaseModel.renderAll();
         GL11.glPopMatrix();

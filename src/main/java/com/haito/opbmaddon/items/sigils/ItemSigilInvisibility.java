@@ -1,5 +1,6 @@
 package com.haito.opbmaddon.items.sigils;
 
+import WayofTime.alchemicalWizardry.api.soulNetwork.ComplexNetworkHandler;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import com.haito.opbmaddon.items.model.OPBMEnergyItem;
@@ -25,27 +26,38 @@ public class ItemSigilInvisibility extends OPBMEnergyItem {
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
+        if(world.isRemote)
+            return itemStack;
+
         SoulNetworkHandler.checkAndSetItemOwner(itemStack, entityPlayer);
         if (entityPlayer.isSneaking()) {
             if (!NBTHelper.getBoolean(itemStack, "isActive")) {
-                EnergyItems.syphonBatteries(itemStack, entityPlayer, this.getEnergyUsed());
-                entityPlayer.setInvisible(true);
-                entityPlayer.capabilities.disableDamage = true;
-                NBTHelper.setBoolean(itemStack, "isActive", true);
-                EnergyItems.syphonBatteries(itemStack, entityPlayer, this.getEnergyUsed()*9);
-                NBTHelper.setInteger(itemStack,"worldTimeDelay",(int)(world.getWorldTime() - 1L) % 200);
+                makePlayerGod(entityPlayer,world,itemStack);
             } else {
-                entityPlayer.setInvisible(false);
-                entityPlayer.capabilities.disableDamage = false;
-                entityPlayer.setHealth(entityPlayer.getHealth() - 4);
-                double posX = entityPlayer.posX;
-                double posY = entityPlayer.posY;
-                double posZ = entityPlayer.posZ;
-                world.playSoundEffect((float) posX + 0.5F, (float) posY + 0.5F, (float) posZ + 0.5F, "random.fizz", 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
-                NBTHelper.setBoolean(itemStack, "isActive", false);
+                unGodPlayer(entityPlayer,world,itemStack);
             }
         }
         return itemStack;
+    }
+
+    private void makePlayerGod(EntityPlayer entityPlayer, World world, ItemStack itemStack){
+        EnergyItems.syphonBatteries(itemStack, entityPlayer, this.getEnergyUsed());
+        entityPlayer.setInvisible(true);
+        entityPlayer.capabilities.disableDamage = true;
+        NBTHelper.setBoolean(itemStack, "isActive", true);
+        //Might conflict in some mods
+        EnergyItems.syphonBatteries(itemStack, entityPlayer, this.getEnergyUsed()*9*SoulNetworkHandler.getCurrentMaxOrb(entityPlayer.getDisplayName()));
+        NBTHelper.setInteger(itemStack,"worldTimeDelay",(int)(world.getWorldTime() - 1L) % 200);
+    }
+
+    private void unGodPlayer(EntityPlayer entityPlayer, World world, ItemStack itemStack){
+        //Oh god this looks like really shitty PHP code...
+        entityPlayer.setInvisible(false);
+        entityPlayer.capabilities.disableDamage = false;
+        entityPlayer.setHealth(entityPlayer.getHealth() - 4);
+
+        world.playSoundEffect((float) entityPlayer.posX + 0.5F, (float) entityPlayer.posY + 0.5F, (float) entityPlayer.posZ + 0.5F, "random.fizz", 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
+        NBTHelper.setBoolean(itemStack, "isActive", false);
     }
 
     @Override
@@ -60,6 +72,7 @@ public class ItemSigilInvisibility extends OPBMEnergyItem {
         if ((par2World.getWorldTime() % 200L == par1ItemStack.stackTagCompound.getInteger("worldTimeDelay")) && (par1ItemStack.stackTagCompound.getBoolean("isActive"))) {
             if (!par3EntityPlayer.capabilities.isCreativeMode) {
                 if (!EnergyItems.syphonBatteries(par1ItemStack, par3EntityPlayer, getEnergyUsed())) {
+                    unGodPlayer(par3EntityPlayer, par2World, par1ItemStack);
                     par1ItemStack.stackTagCompound.setBoolean("isActive", false);
                 }
             }
@@ -79,4 +92,11 @@ public class ItemSigilInvisibility extends OPBMEnergyItem {
         }
     }
 
+    @Override
+    public boolean onDroppedByPlayer(ItemStack item, EntityPlayer player) {
+        //Hope it works
+        unGodPlayer(player,player.getEntityWorld(),item);
+        //TODO: Maybe i should punish player for throwing that item away...
+        return super.onDroppedByPlayer(item, player);
+    }
 }
