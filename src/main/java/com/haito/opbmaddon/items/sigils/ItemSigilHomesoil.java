@@ -17,9 +17,9 @@ import net.minecraft.world.World;
 import java.util.List;
 
 
-public class ItemSigilHomeSoil extends OPBMEnergyItem {
+public class ItemSigilHomesoil extends OPBMEnergyItem {
     //TODO: Reset motion
-    public ItemSigilHomeSoil() {
+    public ItemSigilHomesoil() {
         super();
         this.setMaxStackSize(1);
         this.setUnlocalizedName(Names.Sigils.HOMELSOIL);

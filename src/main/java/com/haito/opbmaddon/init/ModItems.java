@@ -25,7 +25,7 @@ public class ModItems {
 
     //Sigils
     public static final OPBMItem SIGIL_INVISIBILITY = new ItemSigilInvisibility();
-    public static final OPBMItem SIGIL_HOMESOIL = new ItemSigilHomeSoil();
+    public static final OPBMItem SIGIL_HOMESOIL = new ItemSigilHomesoil();
     public static final OPBMItem SIGIL_SILKEN_HAND = new ItemSigilSilk();
     public static final OPBMItem SIGIL_Weather = new ItemSigilWeather();
     public static final OPBMItem SIGIL_TREACHERY = new ItemSigilTreachery();
